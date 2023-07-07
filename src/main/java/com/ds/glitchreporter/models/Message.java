@@ -22,11 +22,51 @@ public class Message {
 
     private String message;
     private LocalDateTime messageDate;
-    private String type;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
-
+    
     // getters and setters
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public LocalDateTime getMessageDate() {
+		return messageDate;
+	}
+
+	public void setMessageDate(LocalDateTime messageDate) {
+		this.messageDate = messageDate;
+	}
+
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+    
 }

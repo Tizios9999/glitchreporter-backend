@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Size;
 public class Priority {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private int id;
 
   @NotBlank
   @Size(max = 20)
@@ -41,45 +41,45 @@ public class Priority {
   
   // Getters and setters
 
-public Long getId() {
-	return id;
-}
-
-public void setId(Long id) {
-	this.id = id;
-}
-
-public String getPriority() {
-	return priority;
-}
-
-public void setPriority(String priority) {
-	this.priority = priority;
-}
-
-public String getPrimaryColorCode() {
-	return primaryColorCode;
-}
-
-public void setPrimaryColorCode(String primaryColorCode) {
-	this.primaryColorCode = primaryColorCode;
-}
-
-public String getSecondaryColorCode() {
-	return secondaryColorCode;
-}
-
-public void setSecondaryColorCode(String secondaryColorCode) {
-	this.secondaryColorCode = secondaryColorCode;
-}
-
-public Set<Priority> getPriorities() {
-	return priorities;
-}
-
-public void setPriorities(Set<Priority> priorities) {
-	this.priorities = priorities;
-}
-  
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getPriority() {
+		return priority;
+	}
+	
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+	
+	public String getPrimaryColorCode() {
+		return primaryColorCode;
+	}
+	
+	public void setPrimaryColorCode(String primaryColorCode) {
+		this.primaryColorCode = primaryColorCode;
+	}
+	
+	public String getSecondaryColorCode() {
+		return secondaryColorCode;
+	}
+	
+	public void setSecondaryColorCode(String secondaryColorCode) {
+		this.secondaryColorCode = secondaryColorCode;
+	}
+	
+	public Set<Priority> getPriorities() {
+		return priorities;
+	}
+	
+	public void setPriorities(Set<Priority> priorities) {
+		this.priorities = priorities;
+	}
+	  
    
 }

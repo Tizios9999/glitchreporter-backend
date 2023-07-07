@@ -35,28 +35,28 @@ public class Topic {
   // Getters and setters
   
 
-public Long getId() {
-	return id;
-}
-
-public void setId(Long id) {
-	this.id = id;
-}
-
-public String getTopic() {
-	return topic;
-}
-
-public void setTopic(String topic) {
-	this.topic = topic;
-}
-
-public Set<Topic> getTopics() {
-	return topics;
-}
-
-public void setTopics(Set<Topic> topics) {
-	this.topics = topics;
-}
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getTopic() {
+		return topic;
+	}
+	
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+	
+	public Set<Topic> getTopics() {
+		return topics;
+	}
+	
+	public void setTopics(Set<Topic> topics) {
+		this.topics = topics;
+	}
 
 }

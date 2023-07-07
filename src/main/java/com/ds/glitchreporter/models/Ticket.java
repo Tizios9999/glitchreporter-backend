@@ -23,6 +23,7 @@ public class Ticket {
     private String ticketSubject;
     private String ticketId;
     private LocalDateTime creationDate;
+    private LocalDateTime lastUpdated;
     
     @ManyToOne
     @JoinColumn(name = "priority_id")
@@ -43,11 +44,97 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "assigned_to_user_id")
     private User assignedTo;
-
-    private LocalDateTime lastUpdated;
     
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
-
+    
     // getters and setters
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTicketSubject() {
+		return ticketSubject;
+	}
+
+	public void setTicketSubject(String ticketSubject) {
+		this.ticketSubject = ticketSubject;
+	}
+
+	public String getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(String ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	public Priority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+
+	public User getOpeningUser() {
+		return openingUser;
+	}
+
+	public void setOpeningUser(User openingUser) {
+		this.openingUser = openingUser;
+	}
+
+	public User getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(User assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
 }
