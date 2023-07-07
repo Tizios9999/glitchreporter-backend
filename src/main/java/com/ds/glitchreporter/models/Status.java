@@ -41,45 +41,45 @@ public class Status {
   
   // Getters and setters
 
-public int getId() {
-	return id;
-}
-
-public void setId(int id) {
-	this.id = id;
-}
-
-public String getStatus() {
-	return status;
-}
-
-public void setStatus(String status) {
-	this.status = status;
-}
-
-public String getPrimaryColorCode() {
-	return primaryColorCode;
-}
-
-public void setPrimaryColorCode(String primaryColorCode) {
-	this.primaryColorCode = primaryColorCode;
-}
-
-public String getSecondaryColorCode() {
-	return secondaryColorCode;
-}
-
-public void setSecondaryColorCode(String secondaryColorCode) {
-	this.secondaryColorCode = secondaryColorCode;
-}
-
-public Set<Status> getStatuses() {
-	return statuses;
-}
-
-public void setStatuses(Set<Status> statuses) {
-	this.statuses = statuses;
-}
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getPrimaryColorCode() {
+		return primaryColorCode;
+	}
+	
+	public void setPrimaryColorCode(String primaryColorCode) {
+		this.primaryColorCode = primaryColorCode;
+	}
+	
+	public String getSecondaryColorCode() {
+		return secondaryColorCode;
+	}
+	
+	public void setSecondaryColorCode(String secondaryColorCode) {
+		this.secondaryColorCode = secondaryColorCode;
+	}
+	
+	public Set<Status> getStatuses() {
+		return statuses;
+	}
+	
+	public void setStatuses(Set<Status> statuses) {
+		this.statuses = statuses;
+	}
   
    
 }
