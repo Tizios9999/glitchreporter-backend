@@ -10,4 +10,6 @@ public class MessageDTO {
 	private String message;
 	private LocalDate date;
 	
+	 // Costruttore, getter e setter
+	
 }
