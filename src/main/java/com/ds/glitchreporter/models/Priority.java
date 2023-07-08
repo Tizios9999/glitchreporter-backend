@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Size;
 public class Priority {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
 
   @NotBlank
   @Size(max = 20)
@@ -45,7 +45,7 @@ public class Priority {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
