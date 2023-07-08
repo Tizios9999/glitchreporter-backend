@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "statuses", 
     uniqueConstraints = { 
-      @UniqueConstraint(columnNames = "status"),
+      @UniqueConstraint(columnNames = "name"),
     })
 public class Status {
   @Id
@@ -20,7 +20,7 @@ public class Status {
 
   @NotBlank
   @Size(max = 30)
-  private String status;
+  private String name;
 
   @Size(max = 6)
   private String primaryColorCode;
@@ -33,8 +33,8 @@ public class Status {
   public Status() {
   }
 
-  public Status(String status, String primaryColorCode, String secondaryColorCode) {
-    this.status = status;
+  public Status(String name, String primaryColorCode, String secondaryColorCode) {
+    this.name = name;
     this.primaryColorCode = primaryColorCode;
     this.secondaryColorCode = secondaryColorCode;
   }
@@ -49,14 +49,14 @@ public class Status {
 		this.id = id;
 	}
 	
-	public String getStatus() {
-		return status;
+	public String getName() {
+		return name;
 	}
-	
-	public void setStatus(String status) {
-		this.status = status;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
 	public String getPrimaryColorCode() {
 		return primaryColorCode;
 	}

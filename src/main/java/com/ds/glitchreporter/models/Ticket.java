@@ -21,7 +21,6 @@ public class Ticket {
     private Long id;
 
     private String ticketSubject;
-    private String ticketId;
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdated;
     
@@ -64,14 +63,6 @@ public class Ticket {
 
 	public void setTicketSubject(String ticketSubject) {
 		this.ticketSubject = ticketSubject;
-	}
-
-	public String getTicketId() {
-		return ticketId;
-	}
-
-	public void setTicketId(String ticketId) {
-		this.ticketId = ticketId;
 	}
 
 	public LocalDateTime getCreationDate() {

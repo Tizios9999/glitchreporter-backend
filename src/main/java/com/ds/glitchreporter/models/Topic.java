@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "topics", 
     uniqueConstraints = { 
-      @UniqueConstraint(columnNames = "topic"),
+      @UniqueConstraint(columnNames = "name"),
     })
 public class Topic {
   @Id
@@ -20,15 +20,15 @@ public class Topic {
 
   @NotBlank
   @Size(max = 40)
-  private String topic;
+  private String name;
 
   private Set<Topic> topics = new HashSet<>();
 
   public Topic() {
   }
 
-  public Topic(String topic) {
-    this.topic = topic;
+  public Topic(String name) {
+    this.name = name;
   }
   
   
@@ -43,12 +43,12 @@ public class Topic {
 		this.id = id;
 	}
 	
-	public String getTopic() {
-		return topic;
+	public String getName() {
+		return name;
 	}
 	
-	public void setTopic(String topic) {
-		this.topic = topic;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public Set<Topic> getTopics() {
