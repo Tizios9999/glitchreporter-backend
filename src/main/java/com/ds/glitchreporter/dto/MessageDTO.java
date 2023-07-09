@@ -10,6 +10,14 @@ public class MessageDTO {
 	private String message;
 	private LocalDate date;
 	
-	 // Costruttore, getter e setter
+	public MessageDTO(Long ticketId, String senderId, String sender, String message, LocalDate date) {
+		this.ticketId = ticketId;
+		this.senderId = senderId;
+		this.sender = sender;
+		this.message = message;
+		this.date = date;
+	}
+	
+	
 	
 }
