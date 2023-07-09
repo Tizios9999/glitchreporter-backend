@@ -29,16 +29,20 @@ public class Priority {
   @Size(max = 6)
   @Column(name = "bg_color_code")
   private String bgColorCode;
+  
+  private Integer level;
+  
 
   private Set<Priority> priorities = new HashSet<>();
 
   public Priority() {
   }
 
-  public Priority(String name, String textColorCode, String bgColorCode) {
+  public Priority(String name, String textColorCode, String bgColorCode, Integer level) {
     this.name = name;
     this.textColorCode = textColorCode;
     this.bgColorCode = bgColorCode;
+    this.level = level;
   }
   
   // Getters and setters
@@ -75,6 +79,14 @@ public class Priority {
 		this.bgColorCode = bgColorCode;
 	}
 	
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
 	public Set<Priority> getPriorities() {
 		return priorities;
 	}
