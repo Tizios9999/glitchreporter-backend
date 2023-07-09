@@ -23,20 +23,22 @@ public class Priority {
   private String name;
 
   @Size(max = 6)
-  private String primaryColorCode;
+  @Column(name = "text_color_code")
+  private String textColorCode;
   
   @Size(max = 6)
-  private String secondaryColorCode;
+  @Column(name = "bg_color_code")
+  private String bgColorCode;
 
   private Set<Priority> priorities = new HashSet<>();
 
   public Priority() {
   }
 
-  public Priority(String name, String primaryColorCode, String secondaryColorCode) {
+  public Priority(String name, String textColorCode, String bgColorCode) {
     this.name = name;
-    this.primaryColorCode = primaryColorCode;
-    this.secondaryColorCode = secondaryColorCode;
+    this.textColorCode = textColorCode;
+    this.bgColorCode = bgColorCode;
   }
   
   // Getters and setters
@@ -57,20 +59,20 @@ public class Priority {
 		this.name = name;
 	}
 
-	public String getPrimaryColorCode() {
-		return primaryColorCode;
+	public String getTextColorCode() {
+		return textColorCode;
 	}
 	
-	public void setPrimaryColorCode(String primaryColorCode) {
-		this.primaryColorCode = primaryColorCode;
+	public void setTextColorCode(String textColorCode) {
+		this.textColorCode = textColorCode;
 	}
 	
-	public String getSecondaryColorCode() {
-		return secondaryColorCode;
+	public String getBgColorCode() {
+		return bgColorCode;
 	}
 	
-	public void setSecondaryColorCode(String secondaryColorCode) {
-		this.secondaryColorCode = secondaryColorCode;
+	public void setBgColorCode(String bgColorCode) {
+		this.bgColorCode = bgColorCode;
 	}
 	
 	public Set<Priority> getPriorities() {
