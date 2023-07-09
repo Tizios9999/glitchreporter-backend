@@ -9,17 +9,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "topics", 
-    uniqueConstraints = { 
-      @UniqueConstraint(columnNames = "name"),
-    })
+@Table(name = "topics")
 public class Topic {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @NotBlank
-  @Size(max = 40)
+  @Size(max = 70)
   private String name;
 
   private Set<Topic> topics = new HashSet<>();
