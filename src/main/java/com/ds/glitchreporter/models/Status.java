@@ -29,16 +29,20 @@ public class Status {
   @Size(max = 6)
   @Column(name = "bg_color_code")
   private String bgColorCode;
+  
+  @Column(name = "is_open")
+  private Boolean isOpen;
 
   private Set<Status> statuses = new HashSet<>();
 
   public Status() {
   }
 
-  public Status(String name, String textColorCode, String bgColorCode) {
+  public Status(String name, String textColorCode, String bgColorCode, Boolean isOpen) {
     this.name = name;
     this.textColorCode = textColorCode;
     this.bgColorCode = bgColorCode;
+    this.isOpen = isOpen;
   }
   
   // Getters and setters
@@ -75,6 +79,14 @@ public class Status {
 		this.bgColorCode = bgColorCode;
 	}
 	
+	public Boolean getIsOpen() {
+		return isOpen;
+	}
+
+	public void setIsOpen(Boolean isOpen) {
+		this.isOpen = isOpen;
+	}
+
 	public Set<Status> getStatuses() {
 		return statuses;
 	}
