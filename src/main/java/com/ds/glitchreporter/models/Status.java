@@ -23,16 +23,17 @@ public class Status {
   private String name;
 
   @Size(max = 6)
-  @Column(name = "text_color_code")
+  @Column(name = "text_color")
   private String textColorCode;
   
   @Size(max = 6)
-  @Column(name = "bg_color_code")
+  @Column(name = "bg_color")
   private String bgColorCode;
   
   @Column(name = "is_open")
   private Boolean isOpen;
 
+  @Transient
   private Set<Status> statuses = new HashSet<>();
 
   public Status() {

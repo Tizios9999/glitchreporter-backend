@@ -9,10 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "priorities", 
-    uniqueConstraints = { 
-      @UniqueConstraint(columnNames = "name"),
-    })
+@Table(name = "priorities")
 public class Priority {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +20,17 @@ public class Priority {
   private String name;
 
   @Size(max = 6)
-  @Column(name = "text_color_code")
+  @Column(name = "text_color")
   private String textColorCode;
   
   @Size(max = 6)
-  @Column(name = "bg_color_code")
+  @Column(name = "bg_color")
   private String bgColorCode;
   
+  @Column(name = "level")
   private Integer level;
   
-
+  @Transient
   private Set<Priority> priorities = new HashSet<>();
 
   public Priority() {

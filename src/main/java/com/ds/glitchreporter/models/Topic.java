@@ -19,6 +19,7 @@ public class Topic {
   @Size(max = 70)
   private String name;
 
+  @Transient
   private Set<Topic> topics = new HashSet<>();
 
   public Topic() {

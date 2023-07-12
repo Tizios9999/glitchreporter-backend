@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ds.glitchreporter.security.jwt.AuthEntryPointJwt;
 import com.ds.glitchreporter.security.jwt.AuthTokenFilter;
+import com.ds.glitchreporter.security.services.PriorityService;
 import com.ds.glitchreporter.security.services.UserDetailsServiceImpl;
 
 @Configuration
@@ -26,6 +27,9 @@ import com.ds.glitchreporter.security.services.UserDetailsServiceImpl;
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
+  
+  @Autowired
+  PriorityService priorityService; // Aggiunta di PriorityService
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;

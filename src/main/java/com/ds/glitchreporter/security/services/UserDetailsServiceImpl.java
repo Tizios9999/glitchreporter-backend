@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ds.glitchreporter.models.User;
+
 import com.ds.glitchreporter.repository.UserRepository;
 
 @Service

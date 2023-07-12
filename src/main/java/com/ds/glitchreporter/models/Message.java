@@ -21,6 +21,7 @@ public class Message {
     private User sender;
 
     private String message;
+    
     private LocalDateTime messageDate;
 
     @ManyToOne
