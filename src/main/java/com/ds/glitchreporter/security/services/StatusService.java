@@ -3,17 +3,17 @@ package com.ds.glitchreporter.security.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ds.glitchreporter.repository.PriorityRepository;
+import com.ds.glitchreporter.repository.StatusRepository;
 
 @Service
-public class PriorityService {
+public class StatusService {
 	
 	@Autowired
-    private final PriorityRepository priorityRepository;
+    private final StatusRepository statusRepository;
 
     @Autowired
-    public PriorityService(PriorityRepository priorityRepository) {
-        this.priorityRepository = priorityRepository;
+    public StatusService(StatusRepository statusRepository) {
+        this.statusRepository = statusRepository;
     }
 
     // Aggiungi qui i metodi per la logica di business legata a Priority

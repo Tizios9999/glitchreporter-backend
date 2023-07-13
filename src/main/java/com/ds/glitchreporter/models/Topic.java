@@ -48,13 +48,5 @@ public class Topic {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Set<Topic> getTopics() {
-		return topics;
-	}
-	
-	public void setTopics(Set<Topic> topics) {
-		this.topics = topics;
-	}
 
 }

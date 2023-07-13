@@ -29,9 +29,6 @@ public class Priority {
   
   @Column(name = "level")
   private Integer level;
-  
-  @Transient
-  private Set<Priority> priorities = new HashSet<>();
 
   public Priority() {
   }
@@ -83,14 +80,6 @@ public class Priority {
 
 	public void setLevel(Integer level) {
 		this.level = level;
-	}
-
-	public Set<Priority> getPriorities() {
-		return priorities;
-	}
-	
-	public void setPriorities(Set<Priority> priorities) {
-		this.priorities = priorities;
 	}
 	  
    

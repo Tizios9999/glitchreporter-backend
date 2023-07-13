@@ -33,9 +33,6 @@ public class Status {
   @Column(name = "is_open")
   private Boolean isOpen;
 
-  @Transient
-  private Set<Status> statuses = new HashSet<>();
-
   public Status() {
   }
 
@@ -86,14 +83,6 @@ public class Status {
 
 	public void setIsOpen(Boolean isOpen) {
 		this.isOpen = isOpen;
-	}
-
-	public Set<Status> getStatuses() {
-		return statuses;
-	}
-	
-	public void setStatuses(Set<Status> statuses) {
-		this.statuses = statuses;
 	}
   
    
