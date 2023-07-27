@@ -1,7 +1,9 @@
 package com.ds.glitchreporter.models;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -20,13 +22,17 @@ public class Message {
     @JoinColumn(name = "sender_user_id")
     private User sender;
 
+    @NotBlank
     private String message;
     
-    private LocalDateTime messageDate;
+    private ZonedDateTime messageDate;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
+    
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UploadedFile> uploadedFiles = new ArrayList<>();
     
     // getters and setters
 
@@ -54,11 +60,11 @@ public class Message {
 		this.message = message;
 	}
 
-	public LocalDateTime getMessageDate() {
+	public ZonedDateTime getMessageDate() {
 		return messageDate;
 	}
 
-	public void setMessageDate(LocalDateTime messageDate) {
+	public void setMessageDate(ZonedDateTime messageDate) {
 		this.messageDate = messageDate;
 	}
 
@@ -68,6 +74,14 @@ public class Message {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+
+	public List<UploadedFile> getUploadedFiles() {
+		return uploadedFiles;
+	}
+
+	public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
+		this.uploadedFiles = uploadedFiles;
 	}
     
 }

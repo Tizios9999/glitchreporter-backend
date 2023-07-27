@@ -1,8 +1,8 @@
 package com.ds.glitchreporter.models;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.ZonedDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +20,11 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String ticketSubject;
-    private LocalDateTime creationDate;
-    private LocalDateTime lastUpdated;
+    
+    private ZonedDateTime creationDate;
+    private ZonedDateTime lastUpdated;
     
     @ManyToOne
     @JoinColumn(name = "priority_id")
@@ -65,19 +67,19 @@ public class Ticket {
 		this.ticketSubject = ticketSubject;
 	}
 
-	public LocalDateTime getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
+	public void setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	public LocalDateTime getLastUpdated() {
+	public ZonedDateTime getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
+	public void setLastUpdated(ZonedDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 
