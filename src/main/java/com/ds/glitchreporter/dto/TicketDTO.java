@@ -4,38 +4,45 @@ import java.util.List;
 
 public class TicketDTO {
 
-	private String ticketId;
+	private Long ticketId;
 	private String ticketSubject;
-    private String priorityId;
-    private String statusId;
-    private String openingUserId;
-    private String assignedToId;
-    private String topicId;
+    private Integer priorityId;
+    private Integer statusId;
+    private Long openingUserId;
+    private String openingUser;
+    private Long assignedToId;
+    private String assignedTo;
+    private Integer topicId;
     private String creationDate;
     private String lastUpdated;
     private List<MessageDTO> messages;
     
-	public TicketDTO(String ticketId, String ticketSubject, String priorityId, String statusId, String openingUserId,
-			String assignedToId, String topicId, String creationDate, String lastUpdated, List<MessageDTO> messages) {
+	public TicketDTO(Long ticketId, String ticketSubject, Integer priorityId, Integer statusId,
+			Long openingUserId, String openingUser, Long assignedToId, String assignedTo, Integer topicId,
+			String creationDate, String lastUpdated, List<MessageDTO> messages) {
+		
 		this.ticketId = ticketId;
 		this.ticketSubject = ticketSubject;
 		this.priorityId = priorityId;
 		this.statusId = statusId;
 		this.openingUserId = openingUserId;
+		this.openingUser = openingUser;
 		this.assignedToId = assignedToId;
+		this.assignedTo = assignedTo;
 		this.topicId = topicId;
 		this.creationDate = creationDate;
 		this.lastUpdated = lastUpdated;
 		this.messages = messages;
+		
 	}
-
-    // getters & setters
 	
-	public String getTicketId() {
+	// Getters and Setters
+
+	public Long getTicketId() {
 		return ticketId;
 	}
 
-	public void setTicketId(String ticketId) {
+	public void setTicketId(Long ticketId) {
 		this.ticketId = ticketId;
 	}
 
@@ -47,43 +54,59 @@ public class TicketDTO {
 		this.ticketSubject = ticketSubject;
 	}
 
-	public String getPriorityId() {
+	public Integer getPriorityId() {
 		return priorityId;
 	}
 
-	public void setPriorityId(String priorityId) {
+	public void setPriorityId(Integer priorityId) {
 		this.priorityId = priorityId;
 	}
 
-	public String getStatusId() {
+	public Integer getStatusId() {
 		return statusId;
 	}
 
-	public void setStatusId(String statusId) {
+	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
 	}
 
-	public String getOpeningUserId() {
+	public Long getOpeningUserId() {
 		return openingUserId;
 	}
 
-	public void setOpeningUserId(String openingUserId) {
+	public void setOpeningUserId(Long openingUserId) {
 		this.openingUserId = openingUserId;
 	}
 
-	public String getAssignedToId() {
+	public String getOpeningUser() {
+		return openingUser;
+	}
+
+	public void setOpeningUser(String openingUser) {
+		this.openingUser = openingUser;
+	}
+
+	public Long getAssignedToId() {
 		return assignedToId;
 	}
 
-	public void setAssignedToId(String assignedToId) {
+	public void setAssignedToId(Long assignedToId) {
 		this.assignedToId = assignedToId;
 	}
 
-	public String getTopicId() {
+	public String getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(String assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
+	public Integer getTopicId() {
 		return topicId;
 	}
 
-	public void setTopicId(String topicId) {
+	public void setTopicId(Integer topicId) {
 		this.topicId = topicId;
 	}
 
@@ -111,5 +134,6 @@ public class TicketDTO {
 		this.messages = messages;
 	}
     
+	
     
 }
