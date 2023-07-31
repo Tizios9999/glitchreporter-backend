@@ -133,7 +133,13 @@ public class TicketDTO {
 	public void setMessages(List<MessageDTO> messages) {
 		this.messages = messages;
 	}
-    
-	
-    
+
+	@Override
+	public String toString() {
+		return "TicketDTO [ticketId=" + ticketId + ", ticketSubject=" + ticketSubject + ", priorityId=" + priorityId
+				+ ", statusId=" + statusId + ", openingUserId=" + openingUserId + ", openingUser=" + openingUser
+				+ ", assignedToId=" + assignedToId + ", assignedTo=" + assignedTo + ", topicId=" + topicId
+				+ ", creationDate=" + creationDate + ", lastUpdated=" + lastUpdated + ", messages=" + messages + "]";
+	}
+  
 }

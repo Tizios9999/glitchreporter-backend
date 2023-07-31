@@ -26,4 +26,11 @@ public class UploadedFileDTO {
 		this.path = path;
 	}
 
+	@Override
+	public String toString() {
+		return "UploadedFileDTO [name=" + name + ", path=" + path + "]";
+	}
+
+	
+	
 }

@@ -81,6 +81,11 @@ public class Priority {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
-	  
-   
+
+	@Override
+	public String toString() {
+		return "Priority [id=" + id + ", name=" + name + ", textColorCode=" + textColorCode + ", bgColorCode="
+				+ bgColorCode + ", level=" + level + "]";
+	}
+	
 }

@@ -71,9 +71,12 @@ public class MessageDTO {
 	public void setUploadedFiles(List<UploadedFileDTO> uploadedFiles) {
 		this.uploadedFiles = uploadedFiles;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "MessageDTO [ticketId=" + ticketId + ", senderId=" + senderId + ", sender=" + sender + ", message="
+				+ message + ", messageDate=" + messageDate + ", uploadedFiles=" + uploadedFiles + "]";
+	}
 	
 	
 }
