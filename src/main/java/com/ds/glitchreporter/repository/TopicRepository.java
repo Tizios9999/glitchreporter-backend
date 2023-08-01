@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.ds.glitchreporter.models.Topic;
 
 @Repository
-public interface TopicRepository extends JpaRepository<Topic, Integer> {
+public interface TopicRepository extends JpaRepository<Topic, Long> {
 
 	List<Topic> findAll();
 	
-	Optional<Topic> findById(Integer id);
+	Optional<Topic> findById(Long id);
 }

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.ds.glitchreporter.models.Status;
 
 @Repository
-public interface StatusRepository extends JpaRepository<Status, Integer> {
+public interface StatusRepository extends JpaRepository<Status, Long> {
 
 	List<Status> findAll();
 	
-	Optional <Status> findById(Integer id);
+	Optional <Status> findById(Long id);
 }

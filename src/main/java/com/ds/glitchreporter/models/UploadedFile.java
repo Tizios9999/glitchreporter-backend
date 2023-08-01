@@ -23,6 +23,10 @@ public class UploadedFile {
 	@ManyToOne
     @JoinColumn(name = "message_id")
     private Message message;
+	
+	public UploadedFile() {
+		
+	}
 
 	public Long getId() {
 		return id;

@@ -1,6 +1,5 @@
 package com.ds.glitchreporter.models;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 import java.util.ArrayList;
@@ -130,4 +129,10 @@ public class Ticket {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
+
+	public Ticket() {
+		
+	}
+	
+	
 }

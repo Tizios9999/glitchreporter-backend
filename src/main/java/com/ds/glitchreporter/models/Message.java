@@ -84,4 +84,7 @@ public class Message {
 		this.uploadedFiles = uploadedFiles;
 	}
     
+	public Message() {
+		
+	}
 }

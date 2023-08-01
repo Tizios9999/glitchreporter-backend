@@ -12,6 +12,8 @@ import com.ds.glitchreporter.models.Status;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.models.User;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
@@ -26,5 +28,11 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByPriorityOrderByCreationDateDesc(Priority priority);
     
     List<Ticket> findByPriorityInOrderByCreationDateDesc(Set<Priority> priorities);
+    
+    @Transactional
+    default Long saveAndReturnId(Ticket ticket) {
+        Ticket savedTicket = save(ticket);
+        return savedTicket.getId();
+    }
 	
 }

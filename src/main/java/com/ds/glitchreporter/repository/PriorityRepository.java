@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.ds.glitchreporter.models.Priority;
 
 @Repository
-public interface PriorityRepository extends JpaRepository<Priority, Integer> {
+public interface PriorityRepository extends JpaRepository<Priority, Long> {
 	
 	List<Priority> findAll();
 	
-	Optional<Priority> findById(Integer id);
+	Optional<Priority> findById(Long id);
 
 }

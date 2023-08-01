@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Size;
 public class Status {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   @NotBlank
   @Size(max = 30)
@@ -45,11 +45,11 @@ public class Status {
   
   // Getters and setters
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

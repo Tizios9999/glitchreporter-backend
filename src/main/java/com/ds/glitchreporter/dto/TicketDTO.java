@@ -6,19 +6,19 @@ public class TicketDTO {
 
 	private Long ticketId;
 	private String ticketSubject;
-    private Integer priorityId;
-    private Integer statusId;
+    private Long priorityId;
+    private Long statusId;
     private Long openingUserId;
     private String openingUser;
     private Long assignedToId;
     private String assignedTo;
-    private Integer topicId;
+    private Long topicId;
     private String creationDate;
     private String lastUpdated;
     private List<MessageDTO> messages;
     
-	public TicketDTO(Long ticketId, String ticketSubject, Integer priorityId, Integer statusId,
-			Long openingUserId, String openingUser, Long assignedToId, String assignedTo, Integer topicId,
+	public TicketDTO(Long ticketId, String ticketSubject, Long priorityId, Long statusId,
+			Long openingUserId, String openingUser, Long assignedToId, String assignedTo, Long topicId,
 			String creationDate, String lastUpdated, List<MessageDTO> messages) {
 		
 		this.ticketId = ticketId;
@@ -54,19 +54,19 @@ public class TicketDTO {
 		this.ticketSubject = ticketSubject;
 	}
 
-	public Integer getPriorityId() {
+	public Long getPriorityId() {
 		return priorityId;
 	}
 
-	public void setPriorityId(Integer priorityId) {
+	public void setPriorityId(Long priorityId) {
 		this.priorityId = priorityId;
 	}
 
-	public Integer getStatusId() {
+	public Long getStatusId() {
 		return statusId;
 	}
 
-	public void setStatusId(Integer statusId) {
+	public void setStatusId(Long statusId) {
 		this.statusId = statusId;
 	}
 
@@ -102,11 +102,11 @@ public class TicketDTO {
 		this.assignedTo = assignedTo;
 	}
 
-	public Integer getTopicId() {
+	public Long getTopicId() {
 		return topicId;
 	}
 
-	public void setTopicId(Integer topicId) {
+	public void setTopicId(Long topicId) {
 		this.topicId = topicId;
 	}
 
