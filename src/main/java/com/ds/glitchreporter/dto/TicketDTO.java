@@ -2,6 +2,8 @@ package com.ds.glitchreporter.dto;
 
 import java.util.List;
 
+import com.ds.glitchreporter.models.Ticket;
+
 public class TicketDTO {
 
 	private Long ticketId;
@@ -33,6 +35,10 @@ public class TicketDTO {
 		this.creationDate = creationDate;
 		this.lastUpdated = lastUpdated;
 		this.messages = messages;
+		
+	}
+	
+	public TicketDTO(Ticket ticket) {
 		
 	}
 	

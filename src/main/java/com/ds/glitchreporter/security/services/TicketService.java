@@ -1,12 +1,20 @@
 package com.ds.glitchreporter.security.services;
 
-import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import com.ds.glitchreporter.dto.TicketPageDTO;
+import com.ds.glitchreporter.dto.TicketPreviewDTO;
+import com.ds.glitchreporter.models.Ticket;
+import com.ds.glitchreporter.models.User;
 import com.ds.glitchreporter.repository.MessageRepository;
 import com.ds.glitchreporter.repository.TicketRepository;
 
@@ -28,37 +36,35 @@ public class TicketService {
         }
     }
 	
-//	public void createTicket(TicketDTO ticketDTO) {
-//        Message message = new Message();
-//        message.setMessage(ticketDTO.getMessageDTO().getMessage());
-//        message.setMessageDate(ticketDTO.getMessageDTO().getMessageDate());
-//        message.setSender(ticketDTO.getMessageDTO().getSender());
-//
-//        List<UploadedFile> uploadedFiles = new ArrayList<>();
-//        for (UploadedFileDTO uploadedFileDTO : ticketDTO.getMessageDTO().getUploadedFiles()) {
-//            UploadedFile uploadedFile = new UploadedFile();
-//            uploadedFile.setFileName(uploadedFileDTO.getFileName());
-//            uploadedFile.setFileType(uploadedFileDTO.getFileType());
-//            uploadedFile.setFileContent(uploadedFileDTO.getFileContent());
-//
-//            uploadedFiles.add(uploadedFile);
-//        }
-//
-//        message.setUploadedFiles(uploadedFiles);
-//        messageRepository.save(message);
-//
-//        Ticket ticket = new Ticket();
-//        ticket.setTicketSubject(ticketDTO.getTicketSubject());
-//        ticket.setCreationDate(ticketDTO.getCreationDate());
-//        ticket.setLastUpdated(ticketDTO.getLastUpdated());
-//        ticket.setPriority(ticketDTO.getPriority());
-//        ticket.setStatus(ticketDTO.getStatus());
-//        ticket.setTopic(ticketDTO.getTopic());
-//        ticket.setOpeningUser(ticketDTO.getOpeningUser());
-//        ticket.setAssignedTo(ticketDTO.getAssignedTo());
-//        ticket.getMessages().add(message);
-//        message.setTicket(ticket);
-//
-//        ticketRepository.save(ticket);
-//    }
+	public TicketPageDTO getTicketsPage(int page, int pageSize) {
+        long totalTickets = ticketRepository.getTotalTicketsCount();
+
+        // Calcola l'indice della prima riga per la pagina specificata
+        int offset = (page - 1) * pageSize;
+
+        // Crea un oggetto Pageable per ottenere i ticket per la pagina specificata
+        Pageable pageable = PageRequest.of(offset, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+
+        List<Ticket> ticketsForPage = ticketRepository.getTicketsForPage(pageable);
+
+        // Mappa la lista di Ticket in una lista di TicketDTO (se necessario)
+        List<TicketPreviewDTO> ticketDTOList = ticketsForPage.stream()
+                .map(this::mapToTicketPreviewDTO)
+                .collect(Collectors.toList());
+
+        // Crea il DTO della pagina dei ticket
+        TicketPageDTO ticketPageDTO = new TicketPageDTO();
+        ticketPageDTO.setTotalTickets(totalTickets);
+        ticketPageDTO.setTicketList(ticketDTOList);
+
+        return ticketPageDTO;
+    }
+
+    // Metodo per mappare Ticket a TicketDTO (se necessario)
+    private TicketPreviewDTO mapToTicketPreviewDTO(Ticket ticket) {
+    	
+    	TicketPreviewDTO ticketPreviewDTO = new TicketPreviewDTO(ticket);
+    	
+    	return ticketPreviewDTO;
+    }
 }

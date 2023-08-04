@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ds.glitchreporter.dto.MessageDTO;
 import com.ds.glitchreporter.dto.TicketDTO;
+import com.ds.glitchreporter.dto.TicketPageDTO;
 import com.ds.glitchreporter.dto.TicketResponseDTO;
 import com.ds.glitchreporter.dto.UploadedFileDTO;
 import com.ds.glitchreporter.models.Priority;
@@ -144,5 +147,15 @@ public class TicketController {
 	     responseDTO.setTicketId(createdTicketId);
 	     
 		return ResponseEntity.ok(responseDTO);
+	}
+	
+	@GetMapping("/getpage")
+	public ResponseEntity<TicketPageDTO> getPage(@RequestParam Integer page, @RequestParam Integer pageSize) {
+		
+		TicketPageDTO ticketPageDTO = ticketService.getTicketsPage(page, pageSize);
+		
+		System.out.println(ticketPageDTO);
+		
+		return ResponseEntity.ok(ticketPageDTO);
 	}
 }

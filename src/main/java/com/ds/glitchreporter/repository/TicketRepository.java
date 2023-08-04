@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.ds.glitchreporter.models.Priority;
@@ -28,6 +30,12 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByPriorityOrderByCreationDateDesc(Priority priority);
     
     List<Ticket> findByPriorityInOrderByCreationDateDesc(Set<Priority> priorities);
+    
+    @Query("SELECT COUNT(t) FROM Ticket t")
+    long getTotalTicketsCount();
+
+    @Query("SELECT t FROM Ticket t ORDER BY t.id DESC")
+    List<Ticket> getTicketsForPage(Pageable pageable);
     
     @Transactional
     default Long saveAndReturnId(Ticket ticket) {
