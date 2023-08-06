@@ -1,8 +1,10 @@
 package com.ds.glitchreporter.dto;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.ds.glitchreporter.models.Ticket;
+import com.ds.glitchreporter.utils.TicketUtils;
 
 public class TicketDTO {
 
@@ -40,6 +42,19 @@ public class TicketDTO {
 	
 	public TicketDTO(Ticket ticket) {
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+		
+		this.ticketId = ticket.getId();
+		this.ticketSubject = ticket.getTicketSubject();
+		this.priorityId = ticket.getPriority().getId();
+		this.statusId = ticket.getStatus().getId();
+		this.openingUserId = ticket.getOpeningUser().getId();
+		this.openingUser = ticket.getOpeningUser().getUsername();
+		this.assignedToId = TicketUtils.getAssignedToUsernameId(ticket);
+		this.assignedTo = TicketUtils.getAssignedToUsername(ticket);
+		this.topicId = ticket.getTopic().getId();
+		this.creationDate = ticket.getCreationDate().format(formatter);
+		this.lastUpdated = ticket.getLastUpdated().format(formatter);
 	}
 	
 	// Getters and Setters

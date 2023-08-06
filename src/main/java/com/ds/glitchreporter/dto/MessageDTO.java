@@ -1,6 +1,9 @@
 package com.ds.glitchreporter.dto;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import com.ds.glitchreporter.models.Message;
 
 public class MessageDTO {
 	
@@ -20,6 +23,17 @@ public class MessageDTO {
 		this.message = message;
 		this.messageDate = messageDate;
 		this.uploadedFiles = uploadedFiles;
+	}
+	
+	public MessageDTO(Message message) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+		
+		this.ticketId = message.getTicket().getId();
+		this.senderId = message.getSender().getId();
+		this.sender = message.getSender().getUsername();
+		this.message = message.getMessage();
+		this.messageDate = message.getMessageDate().format(formatter);
 	}
 	
 	// Getters and Setters

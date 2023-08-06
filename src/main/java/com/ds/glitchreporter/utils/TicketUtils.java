@@ -13,4 +13,13 @@ public class TicketUtils {
             return "Unassigned";
         }
     }
+	
+	public static Long getAssignedToUsernameId(Ticket ticket) {
+        User assignedTo = ticket.getAssignedTo();
+        if (assignedTo != null) {
+            return assignedTo.getId();
+        } else {
+            return (long) 0;
+        }
+    }
 }

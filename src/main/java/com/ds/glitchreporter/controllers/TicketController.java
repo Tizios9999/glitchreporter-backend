@@ -2,14 +2,15 @@ package com.ds.glitchreporter.controllers;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import com.ds.glitchreporter.repository.TicketRepository;
 import com.ds.glitchreporter.repository.TopicRepository;
 import com.ds.glitchreporter.repository.UploadedFileRepository;
 import com.ds.glitchreporter.repository.UserRepository;
+import com.ds.glitchreporter.security.services.MessageService;
 import com.ds.glitchreporter.security.services.TicketService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -67,6 +69,8 @@ public class TicketController {
 	
 	@Autowired
 	TicketService ticketService;
+	
+	
 	
 	@PostMapping("/post")
 	public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
@@ -157,5 +161,25 @@ public class TicketController {
 		System.out.println(ticketPageDTO);
 		
 		return ResponseEntity.ok(ticketPageDTO);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<TicketDTO> getTicketById(@PathVariable Long id) {
+		
+		System.out.println("request arrived");
+		
+	    Optional<Ticket> optionalTicket = ticketRepository.findById(id);
+	    
+	    if (optionalTicket.isPresent()) {
+	        Ticket ticket = optionalTicket.get();
+
+	        TicketDTO ticketDTO = ticketService.mapToTicketDTO(ticket);
+	        
+	        System.out.println(ticketDTO);
+
+	        return ResponseEntity.ok(ticketDTO);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
 	}
 }

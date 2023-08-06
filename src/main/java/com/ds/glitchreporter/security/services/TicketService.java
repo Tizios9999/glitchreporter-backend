@@ -1,5 +1,6 @@
 package com.ds.glitchreporter.security.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,10 +12,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import com.ds.glitchreporter.dto.MessageDTO;
+import com.ds.glitchreporter.dto.TicketDTO;
 import com.ds.glitchreporter.dto.TicketPageDTO;
 import com.ds.glitchreporter.dto.TicketPreviewDTO;
+import com.ds.glitchreporter.dto.UploadedFileDTO;
+import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
-import com.ds.glitchreporter.models.User;
+import com.ds.glitchreporter.models.UploadedFile;
 import com.ds.glitchreporter.repository.MessageRepository;
 import com.ds.glitchreporter.repository.TicketRepository;
 
@@ -26,6 +31,9 @@ public class TicketService {
 	
 	@Autowired
 	MessageRepository messageRepository;
+	
+	@Autowired
+	MessageService messageService;
 
 	public <T> T getObjectById(Long id, JpaRepository<T, Long> repository) {
 		Optional<T> optionalObject = repository.findById(id);
@@ -61,10 +69,30 @@ public class TicketService {
     }
 
     // Metodo per mappare Ticket a TicketDTO (se necessario)
-    private TicketPreviewDTO mapToTicketPreviewDTO(Ticket ticket) {
+    public TicketPreviewDTO mapToTicketPreviewDTO(Ticket ticket) {
     	
     	TicketPreviewDTO ticketPreviewDTO = new TicketPreviewDTO(ticket);
     	
     	return ticketPreviewDTO;
+    }
+    
+    public TicketDTO mapToTicketDTO(Ticket ticket) {
+    	
+    	List<Message> messages = ticket.getMessages();
+    	
+    	List<MessageDTO> messagesDTO = new ArrayList<>();
+		
+		for (Message message : messages) {
+	    	 
+			MessageDTO messageDTO = messageService.mapToMessageDTO(message);
+	    	 
+	    	 messagesDTO.add(messageDTO);
+	     }
+		
+		TicketDTO ticketDTO = new TicketDTO(ticket);
+		
+		ticketDTO.setMessages(messagesDTO);
+    	
+    	return ticketDTO;
     }
 }
