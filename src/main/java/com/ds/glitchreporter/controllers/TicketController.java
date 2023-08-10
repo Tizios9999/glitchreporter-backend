@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import com.ds.glitchreporter.models.Status;
 import com.ds.glitchreporter.models.Topic;
 import com.ds.glitchreporter.models.UploadedFile;
 import com.ds.glitchreporter.models.User;
+import com.ds.glitchreporter.payload.request.UpdateTicketStatusRequest;
 import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.repository.MessageRepository;
@@ -181,5 +183,30 @@ public class TicketController {
 	    } else {
 	        return ResponseEntity.notFound().build();
 	    }
+	}
+	
+	@PutMapping("/{ticketId}/update-status")
+	public ResponseEntity<String> updateTicketStatus(
+	    @PathVariable Long ticketId,
+	    @RequestBody UpdateTicketStatusRequest updateRequest) {
+	    
+	    // Estrai i dati dalla richiesta
+	    Long newStatusId = updateRequest.getTicketStatusId();
+	    Long newAssignedUserId = updateRequest.getNewAssignedUserId();
+	    
+	    Ticket ticket = ticketService.getObjectById(ticketId, ticketRepository);
+
+	    Status newStatus = ticketService.getObjectById(newStatusId, statusRepository);
+	    
+	    User newAssignedUser = ticketService.getObjectById(newAssignedUserId, userRepository);
+
+	    // Aggiorna il ticket con i nuovi valori
+	    ticket.setStatus(newStatus);
+	    ticket.setAssignedTo(newAssignedUser);
+
+	    // Salva il ticket aggiornato
+	    ticketRepository.save(ticket);
+
+	    return ResponseEntity.ok("Ticket updated successfully");
 	}
 }
