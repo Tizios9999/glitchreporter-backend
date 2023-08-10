@@ -199,7 +199,7 @@ public class TicketController {
 	    Status newStatus = ticketService.getObjectById(newStatusId, statusRepository);
 	    
 	    User newAssignedUser = ticketService.getObjectById(newAssignedUserId, userRepository);
-
+	    
 	    // Aggiorna il ticket con i nuovi valori
 	    ticket.setStatus(newStatus);
 	    ticket.setAssignedTo(newAssignedUser);
@@ -209,4 +209,49 @@ public class TicketController {
 
 	    return ResponseEntity.ok("Ticket updated successfully");
 	}
+	
+	@PostMapping("/{ticketId}/add-message")
+	public ResponseEntity<String> addMessageToTicket(
+	    @PathVariable Long ticketId,
+	    @RequestBody MessageDTO messageDTO) {
+	    
+		Ticket ticket = ticketService.getObjectById(ticketId, ticketRepository);
+
+		User sender = ticketService.getObjectById(messageDTO.getSenderId(), userRepository);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+	    ZonedDateTime messageDate = ZonedDateTime.parse(messageDTO.getMessageDate(), formatter);
+		
+	    Message newMessage = new Message();
+	    newMessage.setTicket(ticket);
+	    newMessage.setMessage(messageDTO.getMessage());
+	    newMessage.setSender(sender);
+	    newMessage.setMessageDate(messageDate);
+	    
+	    List<UploadedFileDTO> uploadedFilesDTO = messageDTO.getUploadedFiles();
+	    
+	    List<UploadedFile> uploadedFiles = new ArrayList<>();
+	     
+	     for (UploadedFileDTO fileDTO : uploadedFilesDTO) {
+	    	 UploadedFile uploadedFile = new UploadedFile();
+	    	 uploadedFile.setName(fileDTO.getName());
+	    	 uploadedFile.setPath(fileDTO.getPath());
+	    	 uploadedFile.setMessage(newMessage);
+	    	 
+	    	 uploadedFiles.add(uploadedFile);
+	     }
+	    
+	    newMessage.setUploadedFiles(uploadedFiles);
+
+	    // Aggiungi il nuovo messaggio al ticket
+	    ticket.getMessages().add(newMessage);
+	    
+	    ticket.setLastUpdated(messageDate);
+
+	    // Salva il ticket aggiornato
+	    ticketRepository.save(ticket);
+
+	    return ResponseEntity.ok("Message added to the ticket");
+	}
+
 }
