@@ -45,11 +45,8 @@ public class TicketService {
 	public TicketPageDTO getTicketsPage(int page, int pageSize) {
         long totalTickets = ticketRepository.getTotalTicketsCount();
 
-        // Calcola l'indice della prima riga per la pagina specificata
-        int offset = (page - 1) * pageSize;
-
         // Crea un oggetto Pageable per ottenere i ticket per la pagina specificata
-        Pageable pageable = PageRequest.of(offset, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 
         List<Ticket> ticketsForPage = ticketRepository.getTicketsForPage(pageable);
 
