@@ -1,12 +1,16 @@
 package com.ds.glitchreporter.controllers;
 
 import java.time.ZonedDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +32,7 @@ import com.ds.glitchreporter.models.Status;
 import com.ds.glitchreporter.models.Topic;
 import com.ds.glitchreporter.models.UploadedFile;
 import com.ds.glitchreporter.models.User;
+import com.ds.glitchreporter.payload.request.FilterParameters;
 import com.ds.glitchreporter.payload.request.UpdateTicketStatusRequest;
 import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
@@ -40,6 +45,9 @@ import com.ds.glitchreporter.repository.UploadedFileRepository;
 import com.ds.glitchreporter.repository.UserRepository;
 import com.ds.glitchreporter.security.services.MessageService;
 import com.ds.glitchreporter.security.services.TicketService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -253,5 +261,26 @@ public class TicketController {
 
 	    return ResponseEntity.ok("Message added to the ticket");
 	}
+	
+	@GetMapping("/getfilteredpage")
+    public ResponseEntity<TicketPageDTO> getFilteredPage(
+            @RequestParam Integer page,
+            @RequestParam Integer pageSize,
+            @RequestParam(required = false) String priorityIds,
+            @RequestParam(required = false) String statusIds) {
+
+		System.out.println("page " + page);
+		System.out.println("pageSize " + pageSize);
+		System.out.println("priorityIds " + priorityIds);
+		System.out.println("statusIds " + statusIds);
+		
+		List<Long> priorityIdList = Arrays.asList(priorityIds.substring(1, priorityIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());	
+		List<Long> statusIdList = Arrays.asList(statusIds.substring(1, statusIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
+	    
+        TicketPageDTO ticketPageDTO = ticketService.getFilteredTicketsPage(
+                page, pageSize, priorityIdList, statusIdList);
+
+        return ResponseEntity.ok(ticketPageDTO);
+    }
 
 }

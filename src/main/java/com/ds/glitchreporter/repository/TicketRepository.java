@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ds.glitchreporter.models.Priority;
@@ -30,6 +31,13 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByPriorityOrderByCreationDateDesc(Priority priority);
     
     List<Ticket> findByPriorityInOrderByCreationDateDesc(Set<Priority> priorities);
+    
+    List<Ticket> findByStatusIdInOrderByCreationDateDesc(List<Long> statusIds);
+    
+    List<Ticket> findByPriorityIdInOrderByCreationDateDesc(List<Long> priorityIds);
+    
+    @Query("SELECT t FROM Ticket t WHERE t.priority.id IN :priorityIds OR t.status.id IN :statusIds ORDER BY t.creationDate DESC")
+    List<Ticket> findTicketsByPriorityIdsOrStatusIds(@Param("priorityIds") List<Long> priorityIds, @Param("statusIds") List<Long> statusIds);
     
     @Query("SELECT COUNT(t) FROM Ticket t")
     long getTotalTicketsCount();

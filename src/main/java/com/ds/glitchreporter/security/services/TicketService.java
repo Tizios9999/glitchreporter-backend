@@ -90,4 +90,36 @@ public class TicketService {
     	
     	return ticketDTO;
     }
+    
+    public TicketPageDTO getFilteredTicketsPage(Integer page, Integer pageSize, List<Long> priorityIds, List<Long> statusIds ) {
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        
+        System.out.println("level 2: priorityIds " + priorityIds);
+        System.out.println("level 2: statusIds " + statusIds);
+
+        // Get all tickets that match either statusIds or priorityIds
+        List<Ticket> ticketList = ticketRepository.findTicketsByPriorityIdsOrStatusIds(
+                priorityIds,
+                statusIds
+        );
+        
+        System.out.println("ticket list " + ticketList);
+
+        // Filter out tickets that don't match both statusIds and priorityIds
+        if (!statusIds.contains(0) && !priorityIds.contains(0)) {
+            ticketList.removeIf(ticket -> !statusIds.contains(ticket.getStatus().getId()) || !priorityIds.contains(ticket.getPriority().getId()));
+        }
+        
+        List<TicketPreviewDTO> ticketDTOList = ticketList.stream()
+                .map(this::mapToTicketPreviewDTO)
+                .collect(Collectors.toList());
+
+        // Create and return the TicketPageDTO
+        TicketPageDTO ticketPageDTO = new TicketPageDTO();
+        ticketPageDTO.setTicketList(ticketDTOList);
+        ticketPageDTO.setTotalTickets(ticketRepository.count());
+
+        return ticketPageDTO;
+    }
 }
