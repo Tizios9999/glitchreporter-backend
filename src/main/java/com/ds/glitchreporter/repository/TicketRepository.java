@@ -37,7 +37,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByPriorityIdInOrderByCreationDateDesc(List<Long> priorityIds);
     
     @Query("SELECT t FROM Ticket t WHERE t.priority.id IN :priorityIds OR t.status.id IN :statusIds ORDER BY t.creationDate DESC")
-    List<Ticket> findTicketsByPriorityIdsOrStatusIds(@Param("priorityIds") List<Long> priorityIds, @Param("statusIds") List<Long> statusIds);
+    List<Ticket> findTicketsByPriorityIdsOrStatusIds(@Param("priorityIds") List<Long> priorityIds, @Param("statusIds") List<Long> statusIds, Pageable pageable);
     
     @Query("SELECT COUNT(t) FROM Ticket t")
     long getTotalTicketsCount();
