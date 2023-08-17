@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.repository.MessageRepository;
 import com.ds.glitchreporter.repository.TicketRepository;
+import org.springframework.data.domain.Page;
 
 @Service
 public class TicketService {
@@ -66,32 +68,23 @@ public class TicketService {
     public TicketPageDTO getFilteredTicketsPage(Integer page, Integer pageSize, List<Long> priorityIds, List<Long> statusIds ) {
 
         Pageable pageable = PageRequest.of(page - 1, pageSize);
+           
+        Page<Ticket> ticketPage = ticketRepository.findTicketsByPriorityIdsAndStatusIds(
+                        priorityIds,
+                        statusIds,
+                        pageable
+                );
+      
+        long totalTickets = ticketPage.getTotalElements();
         
-        System.out.println("level 2: priorityIds " + priorityIds);
-        System.out.println("level 2: statusIds " + statusIds);
-
-        // Get all tickets that match either statusIds or priorityIds
-        List<Ticket> ticketList = ticketRepository.findTicketsByPriorityIdsOrStatusIds(
-                priorityIds,
-                statusIds,
-                pageable
-        );
-        
-        System.out.println("ticket list " + ticketList);
-
-        // Filter out tickets that don't match both statusIds and priorityIds
-        if (!statusIds.contains(0) && !priorityIds.contains(0)) {
-            ticketList.removeIf(ticket -> !statusIds.contains(ticket.getStatus().getId()) || !priorityIds.contains(ticket.getPriority().getId()));
-        }
-        
-        List<TicketPreviewDTO> ticketDTOList = ticketList.stream()
+        List<TicketPreviewDTO> ticketDTOList = ticketPage.stream()
                 .map(this::mapToTicketPreviewDTO)
                 .collect(Collectors.toList());
 
         // Create and return the TicketPageDTO
         TicketPageDTO ticketPageDTO = new TicketPageDTO();
         ticketPageDTO.setTicketList(ticketDTOList);
-        ticketPageDTO.setTotalTickets(ticketDTOList.size());
+        ticketPageDTO.setTotalTickets(totalTickets);
 
         return ticketPageDTO;
     }
