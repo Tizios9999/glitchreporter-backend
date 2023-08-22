@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +31,6 @@ import com.ds.glitchreporter.models.Status;
 import com.ds.glitchreporter.models.Topic;
 import com.ds.glitchreporter.models.UploadedFile;
 import com.ds.glitchreporter.models.User;
-import com.ds.glitchreporter.payload.request.FilterParameters;
 import com.ds.glitchreporter.payload.request.UpdateTicketStatusRequest;
 import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
@@ -43,11 +41,7 @@ import com.ds.glitchreporter.repository.TicketRepository;
 import com.ds.glitchreporter.repository.TopicRepository;
 import com.ds.glitchreporter.repository.UploadedFileRepository;
 import com.ds.glitchreporter.repository.UserRepository;
-import com.ds.glitchreporter.security.services.MessageService;
 import com.ds.glitchreporter.security.services.TicketService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
