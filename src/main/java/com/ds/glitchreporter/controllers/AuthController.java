@@ -54,23 +54,14 @@ public class AuthController {
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+	  Authentication authentication = authenticationManager.authenticate(
+	      new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    String jwt = jwtUtils.generateJwtToken(authentication);
-    
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
-    List<String> roles = userDetails.getAuthorities().stream()
-        .map(item -> item.getAuthority())
-        .collect(Collectors.toList());
+	  SecurityContextHolder.getContext().setAuthentication(authentication);
+	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
 
-    return ResponseEntity.ok(new JwtResponse(jwt, 
-                         userDetails.getId(), 
-                         userDetails.getUsername(), 
-                         userDetails.getEmail(), 
-                         roles));
-  }
+	  return ResponseEntity.ok(jwtResponse);
+	}
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -124,6 +115,12 @@ public class AuthController {
     user.setRoles(roles);
     userRepository.save(user);
 
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    Authentication authentication = authenticationManager.authenticate(
+    	      new UsernamePasswordAuthenticationToken(signUpRequest.getUsername(), signUpRequest.getPassword()));
+
+    	  SecurityContextHolder.getContext().setAuthentication(authentication);
+    	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
+
+    	  return ResponseEntity.ok(jwtResponse);
   }
 }

@@ -47,6 +47,12 @@ public class UserDetailsImpl implements UserDetails {
         user.getPassword(), 
         authorities);
   }
+  
+  public List<String> getRoles() {
+	    return authorities.stream()
+	        .map(GrantedAuthority::getAuthority)
+	        .collect(Collectors.toList());
+	  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

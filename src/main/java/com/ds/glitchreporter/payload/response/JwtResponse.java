@@ -1,5 +1,6 @@
 package com.ds.glitchreporter.payload.response;
 
+import java.util.Date;
 import java.util.List;
 
 public class JwtResponse {
@@ -9,13 +10,15 @@ public class JwtResponse {
   private String username;
   private String email;
   private List<String> roles;
+  private Date expiration; 
 
-  public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
+  public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles, Date expiration) {
     this.token = accessToken;
     this.id = id;
     this.username = username;
     this.email = email;
     this.roles = roles;
+    this.expiration = expiration;
   }
 
   public String getAccessToken() {
@@ -60,5 +63,13 @@ public class JwtResponse {
 
   public List<String> getRoles() {
     return roles;
+  }
+  
+  public Date getExpiration() {
+	return expiration;
+  }
+
+  public void setExpiration(Date expiration) {
+	 this.expiration = expiration;
   }
 }
