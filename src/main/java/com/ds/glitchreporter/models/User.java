@@ -32,6 +32,9 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
+  
+  @Column(name = "deleted")
+  private boolean deleted;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
@@ -80,6 +83,14 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public boolean isDeleted() {
+	    return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+	    this.deleted = deleted;
 	}
 	
 	public Set<Role> getRoles() {

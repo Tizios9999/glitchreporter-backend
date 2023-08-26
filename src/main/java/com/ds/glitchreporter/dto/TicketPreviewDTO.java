@@ -42,7 +42,7 @@ public class TicketPreviewDTO {
 		
 		this.ticketId = ticket.getId();
 		this.subject = ticket.getTicketSubject();
-		this.customer = ticket.getOpeningUser().getUsername();
+		this.customer = TicketUtils.getOpeningUserUsername(ticket);
 		this.statusId = ticket.getStatus().getId();
 		this.priorityId = ticket.getPriority().getId();
 		this.assignedTo = TicketUtils.getAssignedToUsername(ticket);

@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.ds.glitchreporter.models.Message;
+import com.ds.glitchreporter.utils.MessageUtils;
 
 public class MessageDTO {
 	
@@ -31,7 +32,7 @@ public class MessageDTO {
 		
 		this.ticketId = message.getTicket().getId();
 		this.senderId = message.getSender().getId();
-		this.sender = message.getSender().getUsername();
+		this.sender = MessageUtils.getMessageSender(message);
 		this.message = message.getMessage();
 		this.messageDate = message.getMessageDate().format(formatter);
 	}

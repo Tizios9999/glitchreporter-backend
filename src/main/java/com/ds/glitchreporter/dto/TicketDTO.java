@@ -49,7 +49,7 @@ public class TicketDTO {
 		this.priorityId = ticket.getPriority().getId();
 		this.statusId = ticket.getStatus().getId();
 		this.openingUserId = ticket.getOpeningUser().getId();
-		this.openingUser = ticket.getOpeningUser().getUsername();
+		this.openingUser = TicketUtils.getOpeningUserUsername(ticket);
 		this.assignedToId = TicketUtils.getAssignedToUsernameId(ticket);
 		this.assignedTo = TicketUtils.getAssignedToUsername(ticket);
 		this.topicId = ticket.getTopic().getId();
