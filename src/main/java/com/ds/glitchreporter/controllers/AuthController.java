@@ -151,14 +151,6 @@ public class AuthController {
     user.setPassword(encoder.encode(changePasswordRequest.getPassword()));
 
     userRepository.save(user);
-
-//    Authentication authentication = authenticationManager.authenticate(
-//    	      new UsernamePasswordAuthenticationToken(changePasswordRequest.getUsername(), changePasswordRequest.getPassword()));
-//
-//    	  SecurityContextHolder.getContext().setAuthentication(authentication);
-//    	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
-//
-//    	  return ResponseEntity.ok(jwtResponse);
     
     return ResponseEntity.ok("Password changed successfully!");
   }
