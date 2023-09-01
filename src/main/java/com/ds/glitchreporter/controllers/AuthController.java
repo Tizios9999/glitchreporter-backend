@@ -2,6 +2,7 @@ package com.ds.glitchreporter.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ds.glitchreporter.models.ERole;
 import com.ds.glitchreporter.models.Role;
 import com.ds.glitchreporter.models.User;
+import com.ds.glitchreporter.payload.request.AuthenticationRequest;
 import com.ds.glitchreporter.payload.request.LoginRequest;
-import com.ds.glitchreporter.payload.request.SignupRequest;
 import com.ds.glitchreporter.payload.response.JwtResponse;
 import com.ds.glitchreporter.payload.response.MessageResponse;
 import com.ds.glitchreporter.repository.RoleRepository;
@@ -64,7 +66,7 @@ public class AuthController {
 	}
 
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+  public ResponseEntity<?> registerUser(@Valid @RequestBody AuthenticationRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
@@ -122,5 +124,42 @@ public class AuthController {
     	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
 
     	  return ResponseEntity.ok(jwtResponse);
+  }
+  
+  @PutMapping("/changepassword")
+  public ResponseEntity<?> changePassword(@Valid @RequestBody AuthenticationRequest changePasswordRequest) {
+	
+	String credentialsError = "Error: wrong username or password!"; // Generic as a security measure
+	  
+    if (!userRepository.existsByUsername(changePasswordRequest.getUsername())) {
+      return ResponseEntity
+          .badRequest()
+          .body(new MessageResponse(credentialsError));
+    }
+
+    Optional<User> optUser = userRepository.findByUsername(changePasswordRequest.getUsername());
+    User user = optUser.get();
+    
+    if (!user.getEmail().equals(changePasswordRequest.getEmail())) {
+        return ResponseEntity
+            .badRequest()
+            .body(new MessageResponse(credentialsError));
+      }
+    
+    // Change user password
+
+    user.setPassword(encoder.encode(changePasswordRequest.getPassword()));
+
+    userRepository.save(user);
+
+//    Authentication authentication = authenticationManager.authenticate(
+//    	      new UsernamePasswordAuthenticationToken(changePasswordRequest.getUsername(), changePasswordRequest.getPassword()));
+//
+//    	  SecurityContextHolder.getContext().setAuthentication(authentication);
+//    	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
+//
+//    	  return ResponseEntity.ok(jwtResponse);
+    
+    return ResponseEntity.ok("Password changed successfully!");
   }
 }
