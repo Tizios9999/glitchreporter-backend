@@ -42,7 +42,7 @@ import com.ds.glitchreporter.repository.TicketRepository;
 import com.ds.glitchreporter.repository.TopicRepository;
 import com.ds.glitchreporter.repository.UploadedFileRepository;
 import com.ds.glitchreporter.repository.UserRepository;
-import com.ds.glitchreporter.security.services.TicketService;
+import com.ds.glitchreporter.services.TicketService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

@@ -16,10 +16,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ds.glitchreporter.security.jwt.AuthEntryPointJwt;
 import com.ds.glitchreporter.security.jwt.AuthTokenFilter;
-import com.ds.glitchreporter.security.services.PriorityService;
-import com.ds.glitchreporter.security.services.StatusService;
-import com.ds.glitchreporter.security.services.TopicService;
 import com.ds.glitchreporter.security.services.UserDetailsServiceImpl;
+import com.ds.glitchreporter.services.PriorityService;
+import com.ds.glitchreporter.services.StatusService;
+import com.ds.glitchreporter.services.TopicService;
 
 @Configuration
 @EnableMethodSecurity

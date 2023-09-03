@@ -1,4 +1,4 @@
-package com.ds.glitchreporter.security.services;
+package com.ds.glitchreporter.services;
 
 import java.util.List;
 import java.util.ArrayList;

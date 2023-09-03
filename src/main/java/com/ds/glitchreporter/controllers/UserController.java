@@ -20,7 +20,7 @@ import com.ds.glitchreporter.models.ERole;
 import com.ds.glitchreporter.models.User;
 import com.ds.glitchreporter.payload.response.MessageResponse;
 import com.ds.glitchreporter.repository.UserRepository;
-import com.ds.glitchreporter.security.services.UserService;
+import com.ds.glitchreporter.services.UserService;
 
 import java.util.List;
 

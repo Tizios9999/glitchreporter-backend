@@ -1,4 +1,4 @@
-package com.ds.glitchreporter.security.services;
+package com.ds.glitchreporter.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

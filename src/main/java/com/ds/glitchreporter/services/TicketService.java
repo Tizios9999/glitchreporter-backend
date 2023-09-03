@@ -1,4 +1,4 @@
-package com.ds.glitchreporter.security.services;
+package com.ds.glitchreporter.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.repository.MessageRepository;
 import com.ds.glitchreporter.repository.TicketRepository;
+
 import org.springframework.data.domain.Page;
 
 @Service
