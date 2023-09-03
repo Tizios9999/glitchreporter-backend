@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,6 +78,7 @@ public class TicketController {
 	
 	
 	@PostMapping("/post")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
 		
 		System.out.println("Ticket data: " + ticketDTO.toString());
@@ -158,6 +160,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("/getpage")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<TicketPageDTO> getPage(@RequestParam Integer page, @RequestParam Integer pageSize) {
 		
 		TicketPageDTO ticketPageDTO = ticketService.getTicketsPage(page, pageSize);
@@ -168,6 +171,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<TicketDTO> getTicketById(@PathVariable Long id) {
 		
 		System.out.println("request arrived");
@@ -188,6 +192,7 @@ public class TicketController {
 	}
 	
 	@PutMapping("/{ticketId}/update-status")
+	@PreAuthorize("hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> updateTicketStatus(
 	    @PathVariable Long ticketId,
 	    @RequestBody UpdateTicketStatusRequest updateRequest) {
@@ -213,6 +218,7 @@ public class TicketController {
 	}
 	
 	@PostMapping("/{ticketId}/add-message")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> addMessageToTicket(
 	    @PathVariable Long ticketId,
 	    @RequestBody MessageDTO messageDTO) {
@@ -257,6 +263,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("/getfilteredpage")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<TicketPageDTO> getFilteredPage(
             @RequestParam Integer page,
             @RequestParam Integer pageSize,
