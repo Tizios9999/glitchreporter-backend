@@ -207,11 +207,11 @@ public class TicketController {
 	    
 	    User newAssignedUser = ticketService.getObjectById(newAssignedUserId, userRepository);
 	    
-	    // Aggiorna il ticket con i nuovi valori
+	    // Update the ticket with the new values
 	    ticket.setStatus(newStatus);
 	    ticket.setAssignedTo(newAssignedUser);
 
-	    // Salva il ticket aggiornato
+	    // Save the updated ticket
 	    ticketRepository.save(ticket);
 
 	    return ResponseEntity.ok("Ticket updated successfully");
