@@ -1,4 +1,4 @@
-package com.ds.glitchreporter.dto;
+package com.ds.glitchreporter.dto.response;
 
 public class TicketResponseDTO {
 	
