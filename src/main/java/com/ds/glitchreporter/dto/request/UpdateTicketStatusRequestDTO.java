@@ -1,6 +1,6 @@
-package com.ds.glitchreporter.payload.request;
+package com.ds.glitchreporter.dto.request;
 
-public class UpdateTicketStatusRequest {
+public class UpdateTicketStatusRequestDTO {
 
 	private Long ticketStatusId;
 	private Long newAssignedUserId;

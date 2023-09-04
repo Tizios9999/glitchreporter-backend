@@ -1,9 +1,9 @@
-package com.ds.glitchreporter.payload.response;
+package com.ds.glitchreporter.dto.response;
 
 import java.util.Date;
 import java.util.List;
 
-public class JwtResponse {
+public class JwtResponseDTO {
   private String token;
   private String type = "Bearer";
   private Long id;
@@ -12,7 +12,7 @@ public class JwtResponse {
   private List<String> roles;
   private Date expiration; 
 
-  public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles, Date expiration) {
+  public JwtResponseDTO(String accessToken, Long id, String username, String email, List<String> roles, Date expiration) {
     this.token = accessToken;
     this.id = id;
     this.username = username;

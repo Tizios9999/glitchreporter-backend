@@ -1,10 +1,10 @@
-package com.ds.glitchreporter.payload.request;
+package com.ds.glitchreporter.dto.request;
 
 import java.util.Set;
 
 import jakarta.validation.constraints.*;
 
-public class AuthenticationRequest {
+public class AuthenticationRequestDTO {
   @NotBlank
   @Size(min = 3, max = 20)
   private String username;

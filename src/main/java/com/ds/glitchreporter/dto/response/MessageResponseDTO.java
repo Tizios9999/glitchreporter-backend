@@ -1,9 +1,9 @@
-package com.ds.glitchreporter.payload.response;
+package com.ds.glitchreporter.dto.response;
 
-public class MessageResponse {
+public class MessageResponseDTO {
 	  private String message;
 
-	  public MessageResponse(String message) {
+	  public MessageResponseDTO(String message) {
 	    this.message = message;
 	  }
 

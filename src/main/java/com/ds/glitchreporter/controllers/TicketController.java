@@ -27,12 +27,12 @@ import com.ds.glitchreporter.dto.TicketDTO;
 import com.ds.glitchreporter.dto.TicketPageDTO;
 import com.ds.glitchreporter.dto.TicketResponseDTO;
 import com.ds.glitchreporter.dto.UploadedFileDTO;
+import com.ds.glitchreporter.dto.request.UpdateTicketStatusRequestDTO;
 import com.ds.glitchreporter.models.Priority;
 import com.ds.glitchreporter.models.Status;
 import com.ds.glitchreporter.models.Topic;
 import com.ds.glitchreporter.models.UploadedFile;
 import com.ds.glitchreporter.models.User;
-import com.ds.glitchreporter.payload.request.UpdateTicketStatusRequest;
 import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.repository.MessageRepository;
@@ -195,7 +195,7 @@ public class TicketController {
 	@PreAuthorize("hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> updateTicketStatus(
 	    @PathVariable Long ticketId,
-	    @RequestBody UpdateTicketStatusRequest updateRequest) {
+	    @RequestBody UpdateTicketStatusRequestDTO updateRequest) {
 	    
 	    // Estrai i dati dalla richiesta
 	    Long newStatusId = updateRequest.getTicketStatusId();

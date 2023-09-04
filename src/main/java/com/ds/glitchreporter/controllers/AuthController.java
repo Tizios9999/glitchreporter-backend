@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ds.glitchreporter.dto.request.AuthenticationRequestDTO;
+import com.ds.glitchreporter.dto.request.LoginRequestDTO;
+import com.ds.glitchreporter.dto.response.JwtResponseDTO;
+import com.ds.glitchreporter.dto.response.MessageResponseDTO;
 import com.ds.glitchreporter.models.ERole;
 import com.ds.glitchreporter.models.Role;
 import com.ds.glitchreporter.models.User;
-import com.ds.glitchreporter.payload.request.AuthenticationRequest;
-import com.ds.glitchreporter.payload.request.LoginRequest;
-import com.ds.glitchreporter.payload.response.JwtResponse;
-import com.ds.glitchreporter.payload.response.MessageResponse;
 import com.ds.glitchreporter.repository.RoleRepository;
 import com.ds.glitchreporter.repository.UserRepository;
 import com.ds.glitchreporter.security.jwt.JwtUtils;
@@ -54,29 +54,29 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
 
 	  Authentication authentication = authenticationManager.authenticate(
 	      new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 	  SecurityContextHolder.getContext().setAuthentication(authentication);
-	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
+	  JwtResponseDTO jwtResponse = jwtUtils.generateJwtResponse(authentication);
 
 	  return ResponseEntity.ok(jwtResponse);
 	}
 
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody AuthenticationRequest signUpRequest) {
+  public ResponseEntity<?> registerUser(@Valid @RequestBody AuthenticationRequestDTO signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Username is already taken!"));
+          .body(new MessageResponseDTO("Error: Username is already taken!"));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Email is already in use!"));
+          .body(new MessageResponseDTO("Error: Email is already in use!"));
     }
 
     // Create new user's account
@@ -121,20 +121,20 @@ public class AuthController {
     	      new UsernamePasswordAuthenticationToken(signUpRequest.getUsername(), signUpRequest.getPassword()));
 
     	  SecurityContextHolder.getContext().setAuthentication(authentication);
-    	  JwtResponse jwtResponse = jwtUtils.generateJwtResponse(authentication);
+    	  JwtResponseDTO jwtResponse = jwtUtils.generateJwtResponse(authentication);
 
     	  return ResponseEntity.ok(jwtResponse);
   }
   
   @PutMapping("/changepassword")
-  public ResponseEntity<?> changePassword(@Valid @RequestBody AuthenticationRequest changePasswordRequest) {
+  public ResponseEntity<?> changePassword(@Valid @RequestBody AuthenticationRequestDTO changePasswordRequest) {
 	
 	String credentialsError = "Error: wrong username or password!"; // Generic as a security measure
 	  
     if (!userRepository.existsByUsername(changePasswordRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse(credentialsError));
+          .body(new MessageResponseDTO(credentialsError));
     }
 
     Optional<User> optUser = userRepository.findByUsername(changePasswordRequest.getUsername());
@@ -143,7 +143,7 @@ public class AuthController {
     if (!user.getEmail().equals(changePasswordRequest.getEmail())) {
         return ResponseEntity
             .badRequest()
-            .body(new MessageResponse(credentialsError));
+            .body(new MessageResponseDTO(credentialsError));
       }
     
     // Change user password

@@ -1,8 +1,8 @@
-package com.ds.glitchreporter.payload.request;
+package com.ds.glitchreporter.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class LoginRequest {
+public class LoginRequestDTO {
 	@NotBlank
   private String username;
 

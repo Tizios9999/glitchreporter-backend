@@ -1,10 +1,10 @@
-package com.ds.glitchreporter.payload.request;
+package com.ds.glitchreporter.dto.request;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FilterParameters {
+public class FilterParametersDTO {
 
 	@JsonProperty("priorityIds")
 	private List<Long> priorityIds;

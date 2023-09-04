@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ds.glitchreporter.dto.RoleUpdateDTO;
+import com.ds.glitchreporter.dto.response.MessageResponseDTO;
 import com.ds.glitchreporter.models.ERole;
 import com.ds.glitchreporter.models.User;
-import com.ds.glitchreporter.payload.response.MessageResponse;
 import com.ds.glitchreporter.repository.UserRepository;
 import com.ds.glitchreporter.services.UserService;
 
@@ -57,9 +57,9 @@ public class UserController {
         try {
         	ERole newRole = ERole.valueOf(roleUpdate.getNewRoleString());
             userService.changeUserRole(userId, newRole);
-            return ResponseEntity.ok(new MessageResponse("User role updated successfully!"));
+            return ResponseEntity.ok(new MessageResponseDTO("User role updated successfully!"));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Error updating user role"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponseDTO("Error updating user role"));
         }
     }
     
@@ -68,9 +68,9 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         try {
             userService.deleteUser(userId);
-            return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
+            return ResponseEntity.ok(new MessageResponseDTO("User deleted successfully!"));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Error updating user role"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponseDTO("Error updating user role"));
         }
     }
 }

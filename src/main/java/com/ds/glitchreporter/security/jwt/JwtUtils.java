@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.ds.glitchreporter.payload.response.JwtResponse;
+import com.ds.glitchreporter.dto.response.JwtResponseDTO;
 import com.ds.glitchreporter.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -25,7 +25,7 @@ public class JwtUtils {
   @Value("${glitchreporter.app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
-  public JwtResponse generateJwtResponse(Authentication authentication) {
+  public JwtResponseDTO generateJwtResponse(Authentication authentication) {
 	    UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 	    Date expirationDate = new Date((new Date()).getTime() + jwtExpirationMs);
 
@@ -36,7 +36,7 @@ public class JwtUtils {
 	        .signWith(key(), SignatureAlgorithm.HS256)
 	        .compact();
 
-	    return new JwtResponse(token, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getEmail(), userPrincipal.getRoles(), expirationDate);
+	    return new JwtResponseDTO(token, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getEmail(), userPrincipal.getRoles(), expirationDate);
 	  }
   
   private Key key() {
