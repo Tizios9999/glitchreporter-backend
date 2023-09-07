@@ -128,24 +128,13 @@ public class TicketController {
 	     message.setSender(user);
 	     message.setUploadedFiles(uploadedFiles);
 	     
-	     Ticket ticket = new Ticket();
-	     
 	     List<Message> messages = new ArrayList<>();
 	     
 	     messages.add(message);
 	     
-	     ticket.setMessages(messages);
-	     ticket.setTicketSubject(ticketDTO.getTicketSubject());
-	     ticket.setPriority(priority);
-	     ticket.setStatus(status);
-	     ticket.setOpeningUser(user);
-	     ticket.setTopic(topic);
-	     ticket.setCreationDate(ZonedDateTime.parse(messageDTO.getMessageDate(), formatter));
-	     ticket.setLastUpdated(ZonedDateTime.parse(messageDTO.getMessageDate(), formatter));
-	     
+	     Ticket ticket = new Ticket(ticketDTO.getTicketSubject(), priority, status, topic, user, creationDate, updateDate, messages);
+ 
 	     message.setTicket(ticket);
-	     
-	     message.setUploadedFiles(uploadedFiles);
 	     
 	     for (UploadedFile file : uploadedFiles) {
 	    	 file.setMessage(message);

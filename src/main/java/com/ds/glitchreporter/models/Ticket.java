@@ -9,8 +9,6 @@ import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
 
-
-
 @Entity
 @Table(name = "tickets")
 public class Ticket {
@@ -46,6 +44,32 @@ public class Ticket {
     
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
+    
+    // constructors
+    
+	public Ticket() {
+		
+	}
+	
+	public Ticket(
+		    String ticketSubject,
+		    Priority priority,
+		    Status status,
+		    Topic topic,
+		    User openingUser,
+		    ZonedDateTime creationDate,
+		    ZonedDateTime lastUpdated,
+		    List<Message> messages
+		) {
+		    this.ticketSubject = ticketSubject;
+		    this.priority = priority;
+		    this.status = status;
+		    this.topic = topic;
+		    this.openingUser = openingUser;
+		    this.creationDate = creationDate;
+		    this.lastUpdated = lastUpdated;
+		    this.messages = messages;
+		}
     
     // getters and setters
 
@@ -127,10 +151,6 @@ public class Ticket {
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
-	}
-
-	public Ticket() {
-		
 	}
 	
 	
