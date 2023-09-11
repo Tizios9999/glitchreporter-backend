@@ -11,6 +11,11 @@ import com.ds.glitchreporter.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Service used to retrieve the list of users,
+ * change their role, or delete them.
+ */
+
 @Service
 public class UserService {
 
@@ -27,8 +32,8 @@ public class UserService {
         Role role = roleRepository.findByName(newRole)
             .orElseThrow(() -> new EntityNotFoundException("Role not found"));
 
-        user.getRoles().clear(); // Rimuovi tutti i ruoli precedenti
-        user.getRoles().add(role); // Aggiungi il nuovo ruolo
+        user.getRoles().clear(); // Remove all roles
+        user.getRoles().add(role); // Add the new role
         userRepository.save(user);
     }
 

@@ -31,6 +31,7 @@ public class MetadataController {
 	@Autowired
 	TopicRepository topicRepository;
 	
+	// returns the ticket metadata
 	@GetMapping("/get")
     public ResponseEntity<MetadataDTO> getMetadata() {
         List<Priority> priorities = priorityRepository.findAll();

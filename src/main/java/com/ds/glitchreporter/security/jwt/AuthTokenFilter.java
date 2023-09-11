@@ -19,6 +19,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ds.glitchreporter.security.services.UserDetailsServiceImpl;
 
+/**
+ * This filter intercepts and processes incoming requests to validate and set user authentication based on JWT tokens.
+ */
+
 public class AuthTokenFilter extends OncePerRequestFilter {
   @Autowired
   private JwtUtils jwtUtils;
@@ -53,6 +57,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
+  /**
+   * Parses the JWT token from the request.
+   *
+   * @param request The HTTP request
+   * @return The JWT token, or null if not found
+   */
+  
   private String parseJwt(HttpServletRequest request) {
     String headerAuth = request.getHeader("Authorization");
 

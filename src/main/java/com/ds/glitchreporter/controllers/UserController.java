@@ -24,6 +24,11 @@ import com.ds.glitchreporter.services.UserService;
 
 import java.util.List;
 
+/**
+ * Controller used to retrieve the list of users,
+ * change their role, or delete them.
+ */
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")

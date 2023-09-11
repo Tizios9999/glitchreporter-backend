@@ -12,6 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ds.glitchreporter.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * UserDetailsImpl implements the UserDetails interface, representing a custom user details class
+ * used for authentication and authorization purposes.
+ */
+
 public class UserDetailsImpl implements UserDetails {
   private static final long serialVersionUID = 1L;
 
@@ -28,6 +33,16 @@ public class UserDetailsImpl implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
+  /**
+   * Constructor to create a UserDetailsImpl object.
+   * @param id The user's ID
+   * @param username The user's username
+   * @param email The user's email
+   * @param password The user's password (not exposed with @JsonIgnore)
+   * @param authorities The user's granted authorities
+   * @param deleted Whether the user is deleted or not
+   */
+  
   public UserDetailsImpl(Long id, String username, String email, String password,
       Collection<? extends GrantedAuthority> authorities, boolean deleted) {
     this.id = id;
@@ -38,6 +53,12 @@ public class UserDetailsImpl implements UserDetails {
     this.deleted = deleted;
   }
 
+  /**
+   * Build a UserDetailsImpl object from a User entity.
+   * @param user The User entity
+   * @return UserDetailsImpl representing the User entity
+   */
+  
   public static UserDetailsImpl build(User user) {
     List<GrantedAuthority> authorities = user.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -51,6 +72,11 @@ public class UserDetailsImpl implements UserDetails {
         authorities,
         user.isDeleted());
   }
+  
+  /**
+   * Get the roles associated with the user.
+   * @return List of roles as strings
+   */
   
   public List<String> getRoles() {
 	    return authorities.stream()

@@ -53,6 +53,7 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  //Endpoint for user authentication
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
 
@@ -126,6 +127,7 @@ public class AuthController {
     	  return ResponseEntity.ok(jwtResponse);
   }
   
+  //Endpoint for changing user password
   @PutMapping("/changepassword")
   public ResponseEntity<?> changePassword(@Valid @RequestBody AuthenticationRequestDTO changePasswordRequest) {
 	
@@ -137,6 +139,7 @@ public class AuthController {
           .body(new MessageResponseDTO(credentialsError));
     }
 
+    // Find the user by username
     Optional<User> optUser = userRepository.findByUsername(changePasswordRequest.getUsername());
     User user = optUser.get();
     
@@ -146,8 +149,7 @@ public class AuthController {
             .body(new MessageResponseDTO(credentialsError));
       }
     
-    // Change user password
-
+    // Change the user's password
     user.setPassword(encoder.encode(changePasswordRequest.getPassword()));
 
     userRepository.save(user);

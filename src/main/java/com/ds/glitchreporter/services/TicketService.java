@@ -35,6 +35,7 @@ public class TicketService {
 	@Autowired
 	MessageService messageService;
 
+	// Helper class to get an object from a repository
 	public <T> T getObjectById(Long id, JpaRepository<T, Long> repository) {
 		Optional<T> optionalObject = repository.findById(id);
         if (optionalObject.isPresent()) {
@@ -44,10 +45,16 @@ public class TicketService {
         }
     }
 	
+	/**
+	   * Returns a pageable list of tickets preview. This is deprecated, use getFilteredTicketsPage instead
+	   * @param page The requested page
+	   * @param pageSize The size of the page
+	   * @return ticketPageDTO A list of tickets preview along with the amount of total tickets as well.
+	   */
 	public TicketPageDTO getTicketsPage(int page, int pageSize) {
         long totalTickets = ticketRepository.getTotalTicketsCount();
 
-        // Crea un oggetto Pageable per ottenere i ticket per la pagina specificata
+        // Returns a pageable ticket for the specified page
         Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 
         List<Ticket> ticketsForPage = ticketRepository.getTicketsForPage(pageable);
@@ -65,6 +72,15 @@ public class TicketService {
         return ticketPageDTO;
     }
 
+	/**
+	   * Returns a pageable list of tickets preview based on active filters sent by the frontend.
+	   * @param page The requested page
+	   * @param pageSize The size of the page
+	   * @param priorityIds The list of ticket priority IDs requested
+	   * @param statusIds The list of ticket status IDs requested
+	   * @return ticketPageDTO A list of tickets preview along with the amount of total tickets as well.
+	   */
+	
     public TicketPageDTO getFilteredTicketsPage(Integer page, Integer pageSize, List<Long> priorityIds, List<Long> statusIds ) {
 
         Pageable pageable = PageRequest.of(page - 1, pageSize);
@@ -89,13 +105,24 @@ public class TicketService {
         return ticketPageDTO;
     }
     
-    // Metodo per mappare Ticket a TicketDTO (se necessario)
+    /**
+	   * Mapping from a Ticket object to a TicketPreviewDTO object.
+	   * @param ticket The ticket object.
+	   * @return ticketPreviewDTO The ticket preview generated from the ticket.
+	   */
+    
     public TicketPreviewDTO mapToTicketPreviewDTO(Ticket ticket) {
     	
     	TicketPreviewDTO ticketPreviewDTO = new TicketPreviewDTO(ticket);
     	
     	return ticketPreviewDTO;
     }
+    
+    /**
+	   * Mapping from a Ticket object to a TicketDTO object.
+	   * @param ticket The ticket object.
+	   * @return ticketDTO The DTO generated from the ticket.
+	   */
     
     public TicketDTO mapToTicketDTO(Ticket ticket) {
     	

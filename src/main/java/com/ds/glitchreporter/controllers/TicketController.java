@@ -81,7 +81,7 @@ public class TicketController {
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
 		
-		System.out.println("Ticket data: " + ticketDTO.toString());
+		 System.out.println("Ticket data: " + ticketDTO.toString());
 		
 		 Priority priority = ticketService.getObjectById(ticketDTO.getPriorityId(), priorityRepository);
 	     String priorityName = priority.getName();
@@ -106,11 +106,8 @@ public class TicketController {
 	     // parse to change to ZonedDateTime, format to change ZonedDateTime to String.
 	     
 	     User user = ticketService.getObjectById(ticketDTO.getOpeningUserId(), userRepository);
-	     
 	     MessageDTO messageDTO = ticketDTO.getMessages().get(0);
-	     
 	     List<UploadedFileDTO> uploadedFilesDTO = messageDTO.getUploadedFiles();
-	     
 	     List<UploadedFile> uploadedFiles = new ArrayList<>();
 	     
 	     for (UploadedFileDTO fileDTO : uploadedFilesDTO) {
@@ -239,13 +236,9 @@ public class TicketController {
 	     }
 	    
 	    newMessage.setUploadedFiles(uploadedFiles);
-
-	    // Aggiungi il nuovo messaggio al ticket
-	    ticket.getMessages().add(newMessage);
-	    
+	    ticket.getMessages().add(newMessage);	    
 	    ticket.setLastUpdated(messageDate);
 
-	    // Salva il ticket aggiornato
 	    ticketRepository.save(ticket);
 
 	    return ResponseEntity.ok("Message added to the ticket");
