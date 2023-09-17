@@ -6,19 +6,71 @@ import java.util.List;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.utils.TicketUtils;
 
+/**
+ * Data Transfer Object (DTO) for representing ticket information in the GlitchReporter application.
+ * This class is used to transfer ticket-related data between different parts of the application.
+ */
+
 public class TicketDTO {
 
+	/**
+     * The unique identifier of the ticket.
+     */
 	private Long ticketId;
+	 
+	/**
+     * The subject or title of the ticket.
+     */
 	private String ticketSubject;
-    private Long priorityId;
+    
+	/**
+     * The identifier of the priority associated with the ticket.
+     */
+	private Long priorityId;
+	
+	/**
+     * The identifier of the status of the ticket.
+     */
     private Long statusId;
+    
+    /**
+     * The identifier of the user who opened the ticket.
+     */
     private Long openingUserId;
+    
+    /**
+     * The username of the user who opened the ticket.
+     */
     private String openingUser;
+    
+    /**
+     * The identifier of the user to whom the ticket is assigned.
+     */
     private Long assignedToId;
+    
+    /**
+     * The username of the user to whom the ticket is assigned.
+     */
     private String assignedTo;
+    
+    /**
+     * The identifier of the topic associated with the ticket.
+     */
     private Long topicId;
+    
+    /**
+     * The creation date and time of the ticket in ISO offset format.
+     */
     private String creationDate;
+    
+    /**
+     * The date and time when the ticket was last updated in ISO offset format.
+     */
     private String lastUpdated;
+    
+    /**
+     * The list of messages associated with the ticket, represented as MessageDTO objects.
+     */
     private List<MessageDTO> messages;
     
 	public TicketDTO(Long ticketId, String ticketSubject, Long priorityId, Long statusId,

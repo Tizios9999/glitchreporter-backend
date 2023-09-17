@@ -6,6 +6,12 @@ import java.util.List;
 import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.utils.MessageUtils;
 
+/**
+ * Data Transfer Object (DTO) for representing ticket messages in the GlitchReporter application.
+ * This class is used to transfer message-related information between different parts of the application,
+ * such as controllers, services, and views.
+ */
+
 public class MessageDTO {
 	
 	private Long ticketId;
@@ -14,6 +20,17 @@ public class MessageDTO {
 	private String message;
 	private String messageDate;
 	private List<UploadedFileDTO> uploadedFiles;
+	
+	/**
+     * Constructs a new MessageDTO object with the provided information.
+     *
+     * @param ticketId      The unique identifier of the ticket associated with this message.
+     * @param senderId      The unique identifier of the sender of this message.
+     * @param sender        The name or username of the sender of this message.
+     * @param message       The content of the message.
+     * @param messageDate   The date and time when the message was sent, formatted as a string.
+     * @param uploadedFiles A list of DTOs representing uploaded files attached to this message.
+     */
 	
 	public MessageDTO(Long ticketId, Long senderId, String sender, String message, String messageDate,
 			List<UploadedFileDTO> uploadedFiles) {
@@ -25,6 +42,12 @@ public class MessageDTO {
 		this.messageDate = messageDate;
 		this.uploadedFiles = uploadedFiles;
 	}
+	
+	/**
+     * Constructs a new MessageDTO object by extracting information from a Message entity.
+     *
+     * @param message The Message entity from which to extract information.
+     */
 	
 	public MessageDTO(Message message) {
 		

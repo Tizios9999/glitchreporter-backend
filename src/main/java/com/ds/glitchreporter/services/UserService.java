@@ -32,8 +32,8 @@ public class UserService {
         Role role = roleRepository.findByName(newRole)
             .orElseThrow(() -> new EntityNotFoundException("Role not found"));
 
-        user.getRoles().clear(); // Remove all roles
-        user.getRoles().add(role); // Add the new role
+        user.getRoles().clear();
+        user.getRoles().add(role); 
         userRepository.save(user);
     }
 

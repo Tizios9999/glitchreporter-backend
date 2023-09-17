@@ -1,12 +1,17 @@
-package com.ds.glitchreporter.dto;
+package com.ds.glitchreporter.dto.response;
 
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.utils.TicketUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * Data Transfer Object (DTO) for representing a preview of a ticket in the GlitchReporter application.
+ * This class is used to transfer summarized information about a ticket, including its subject, customer, status,
+ * priority, assigned user, and last update date, to be sent to the Frontend.
+ */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TicketPreviewDTO {

@@ -75,8 +75,6 @@ public class TicketController {
 	@Autowired
 	TicketService ticketService;
 	
-	
-	
 	@PostMapping("/post")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketDTO ticketDTO) {

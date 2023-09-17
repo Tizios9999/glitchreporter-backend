@@ -4,6 +4,12 @@ import java.util.Set;
 
 import jakarta.validation.constraints.*;
 
+/**
+ * Data Transfer Object (DTO) for representing an authentication request in the GlitchReporter application.
+ * This class is used to transfer user authentication information, including username, email, password, and roles,
+ * between different parts of the application.
+ */
+
 public class AuthenticationRequestDTO {
   @NotBlank
   @Size(min = 3, max = 20)

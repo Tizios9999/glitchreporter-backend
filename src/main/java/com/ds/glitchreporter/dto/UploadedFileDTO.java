@@ -2,6 +2,12 @@ package com.ds.glitchreporter.dto;
 
 import com.ds.glitchreporter.models.UploadedFile;
 
+/**
+ * Data Transfer Object (DTO) for representing an uploaded file in the GlitchReporter application.
+ * This class is used to transfer information about an uploaded file, including its unique identifier, name, and file path,
+ * between different parts of the application.
+ */
+
 public class UploadedFileDTO {
 	
 	private Long id;

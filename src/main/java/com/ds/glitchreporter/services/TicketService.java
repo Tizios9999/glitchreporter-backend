@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.ds.glitchreporter.dto.MessageDTO;
 import com.ds.glitchreporter.dto.TicketDTO;
 import com.ds.glitchreporter.dto.TicketPageDTO;
-import com.ds.glitchreporter.dto.TicketPreviewDTO;
+import com.ds.glitchreporter.dto.response.TicketPreviewDTO;
 import com.ds.glitchreporter.models.Message;
 import com.ds.glitchreporter.models.Ticket;
 import com.ds.glitchreporter.repository.MessageRepository;
