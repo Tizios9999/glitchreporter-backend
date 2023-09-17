@@ -16,5 +16,4 @@ public class StatusService {
         this.statusRepository = statusRepository;
     }
 
-    // Aggiungi qui i metodi per la logica di business legata a Priority
 }

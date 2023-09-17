@@ -9,6 +9,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Email;
 
+/**
+ * Represents an User in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "users", 
     uniqueConstraints = { 

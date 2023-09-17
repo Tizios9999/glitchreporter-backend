@@ -13,6 +13,10 @@ import com.ds.glitchreporter.models.UploadedFile;
 import com.ds.glitchreporter.repository.MessageRepository;
 import com.ds.glitchreporter.repository.UploadedFileRepository;
 
+/**
+ * Service class for managing messages and their associated files.
+ */
+
 @Service
 public class MessageService {
 
@@ -22,6 +26,12 @@ public class MessageService {
 	@Autowired
 	UploadedFileRepository uploadedFileRepository;
 	
+    /**
+     * Maps a Message entity to a MessageDTO.
+     *
+     * @param message The Message entity to be mapped.
+     * @return A MessageDTO containing information from the given Message entity.
+     */
 	public MessageDTO mapToMessageDTO(Message message) {
 		
 		MessageDTO messageDTO = new MessageDTO(message);

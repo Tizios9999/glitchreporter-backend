@@ -11,6 +11,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Represents a message associated with a support ticket in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "messages")
 public class Message {

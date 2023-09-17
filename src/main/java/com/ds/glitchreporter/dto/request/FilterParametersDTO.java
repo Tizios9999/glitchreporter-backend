@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Data Transfer Object (DTO) for representing filter parameters used to filter tickets in the GlitchReporter application.
+ * This class is used to transfer filtering criteria, such as priority and status IDs, from the frontend to the backend.
+ */
+
 public class FilterParametersDTO {
 
 	@JsonProperty("priorityIds")

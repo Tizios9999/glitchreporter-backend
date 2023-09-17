@@ -2,6 +2,10 @@ package com.ds.glitchreporter.models;
 
 import jakarta.persistence.*;
 
+/**
+ * Represents a user role in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "roles")
 public class Role {

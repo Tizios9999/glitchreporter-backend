@@ -9,6 +9,10 @@ import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * Represents a support ticket in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "tickets")
 public class Ticket {

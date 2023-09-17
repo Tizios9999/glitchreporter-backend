@@ -1,32 +1,49 @@
 package com.ds.glitchreporter.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Represents a priority level for support tickets in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "priorities")
 public class Priority {
+	
+  /**
+   * The unique identifier of the priority level.
+   */	
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  /**
+   * The name of the priority level. Must not be blank and should have a maximum length of 20 characters.
+   */  
   @NotBlank
   @Size(max = 20)
   private String name;
 
+  /**
+   * The text color HEX code associated with this priority level.
+   */
   @Size(max = 6)
   @Column(name = "text_color")
   private String textColorCode;
-  
+
+  /**
+   * The background color HEX code associated with this priority level.
+   */  
   @Size(max = 6)
   @Column(name = "bg_color")
   private String bgColorCode;
   
+  /**
+   * The priority level's ranking.
+   */
   @Column(name = "level")
   private Integer level;
 

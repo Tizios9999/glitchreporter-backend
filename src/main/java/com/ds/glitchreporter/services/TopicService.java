@@ -16,5 +16,4 @@ public class TopicService {
         this.topicRepository = topicRepository;
     }
 
-    // Aggiungi qui i metodi per la logica di business legata a Priority
 }

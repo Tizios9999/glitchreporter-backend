@@ -1,12 +1,13 @@
 package com.ds.glitchreporter.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+/**
+ * Represents a status in the GlitchReporter application.
+ */
 
 @Entity
 @Table(name = "statuses", 
@@ -14,22 +15,38 @@ import jakarta.validation.constraints.Size;
       @UniqueConstraint(columnNames = "name"),
     })
 public class Status {
+	
+  /**
+   * The unique identifier of the status.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  /**
+   * The name of the status.
+   */
   @NotBlank
   @Size(max = 30)
   private String name;
-
+  
+  /**
+   * The text color HEX code associated with the status.
+   */
   @Size(max = 6)
   @Column(name = "text_color")
   private String textColorCode;
-  
+
+  /**
+   * The background color HEX code associated with the status.
+   */
   @Size(max = 6)
   @Column(name = "bg_color")
   private String bgColorCode;
   
+  /**
+   * Indicates whether the ticket status is open or closed.
+   */
   @Column(name = "is_open")
   private Boolean isOpen;
 

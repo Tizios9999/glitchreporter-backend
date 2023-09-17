@@ -8,6 +8,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Represents the support ticket topic in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "topics")
 public class Topic {

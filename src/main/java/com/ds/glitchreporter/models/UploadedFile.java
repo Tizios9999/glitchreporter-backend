@@ -8,6 +8,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Represents an attached file inside a ticket message in the GlitchReporter application.
+ */
+
 @Entity
 @Table(name = "uploaded_files")
 public class UploadedFile {

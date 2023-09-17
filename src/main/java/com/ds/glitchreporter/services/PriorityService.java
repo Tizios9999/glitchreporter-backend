@@ -16,5 +16,4 @@ public class PriorityService {
         this.priorityRepository = priorityRepository;
     }
 
-    // Aggiungi qui i metodi per la logica di business legata a Priority
 }
