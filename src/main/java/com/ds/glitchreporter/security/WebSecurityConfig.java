@@ -33,15 +33,6 @@ import com.ds.glitchreporter.services.TopicService;
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
-  
-  @Autowired
-  PriorityService priorityService; // Aggiunta di PriorityService
-  
-  @Autowired
-  StatusService statusService;
-  
-  @Autowired
-  TopicService topicService;
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;
