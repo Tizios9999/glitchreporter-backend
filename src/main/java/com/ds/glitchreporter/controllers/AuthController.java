@@ -1,19 +1,19 @@
 package com.ds.glitchreporter.controllers;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,6 @@ import com.ds.glitchreporter.models.User;
 import com.ds.glitchreporter.repository.RoleRepository;
 import com.ds.glitchreporter.repository.UserRepository;
 import com.ds.glitchreporter.security.jwt.JwtUtils;
-import com.ds.glitchreporter.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -57,14 +56,32 @@ public class AuthController {
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
 
-	  Authentication authentication = authenticationManager.authenticate(
-	      new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+	  try {
+		  Authentication authentication = authenticationManager.authenticate(
+			      new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-	  SecurityContextHolder.getContext().setAuthentication(authentication);
-	  JwtResponseDTO jwtResponse = jwtUtils.generateJwtResponse(authentication);
+			  SecurityContextHolder.getContext().setAuthentication(authentication);
+			  JwtResponseDTO jwtResponse = jwtUtils.generateJwtResponse(authentication);
 
-	  return ResponseEntity.ok(jwtResponse);
-	}
+			  return ResponseEntity.ok(jwtResponse);
+	  } catch (BadCredentialsException e) {
+      return ResponseEntity
+          .badRequest()
+          .body(new MessageResponseDTO("Invalid credentials. Please check your username and password."));
+	  } catch (UsernameNotFoundException e) {
+	  // Same error message for bad credentials as a security measure.
+      return ResponseEntity
+          .badRequest()
+          .body(new MessageResponseDTO("Invalid credentials. Please check your username and password."));
+	  } catch (Exception e) {
+      // Other exceptions
+      String errorMessage = e.getMessage();
+      return ResponseEntity
+          .badRequest()
+          .body(new MessageResponseDTO("Error during login: " + errorMessage));
+	  }
+  }
+	 
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody AuthenticationRequestDTO signUpRequest) {
