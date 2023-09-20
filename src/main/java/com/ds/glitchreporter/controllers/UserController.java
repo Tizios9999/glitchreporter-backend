@@ -42,18 +42,29 @@ public class UserController {
 
     @GetMapping("/getall")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> allUsers = userRepository.findAll();
+    public ResponseEntity<?> getAllUsers() {
+    	
+    	try {
+    		List<User> allUsers = userRepository.findAll();
+            
+            List<User> activeUsers = new ArrayList<>();
+            
+            for (User user : allUsers) {
+            	if (!user.isDeleted()) {
+            		activeUsers.add(user);
+            	}
+            }
+            
+            return ResponseEntity.ok(activeUsers);
+    	}
+    	
+    	catch (Exception e) {
+    		String errorMessage = e.getMessage();
+			return ResponseEntity
+		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(new MessageResponseDTO("An internal error occurred while fetching users list: " + errorMessage));
+		}
         
-        List<User> activeUsers = new ArrayList<>();
-        
-        for (User user : allUsers) {
-        	if (!user.isDeleted()) {
-        		activeUsers.add(user);
-        	}
-        }
-        
-        return ResponseEntity.ok(activeUsers);
     }
     
     @PutMapping("/changerole/{userId}")

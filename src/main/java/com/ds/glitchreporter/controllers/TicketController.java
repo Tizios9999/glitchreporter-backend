@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +28,7 @@ import com.ds.glitchreporter.dto.TicketDTO;
 import com.ds.glitchreporter.dto.TicketPageDTO;
 import com.ds.glitchreporter.dto.UploadedFileDTO;
 import com.ds.glitchreporter.dto.request.UpdateTicketStatusRequestDTO;
+import com.ds.glitchreporter.dto.response.MessageResponseDTO;
 import com.ds.glitchreporter.dto.response.TicketResponseDTO;
 import com.ds.glitchreporter.models.Priority;
 import com.ds.glitchreporter.models.Status;
@@ -77,70 +79,79 @@ public class TicketController {
 	
 	@PostMapping("/post")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
-	public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
+	public ResponseEntity<?> createTicket(@RequestBody TicketDTO ticketDTO) {
 		
-		 System.out.println("Ticket data: " + ticketDTO.toString());
+		try {
 		
-		 Priority priority = ticketService.getObjectById(ticketDTO.getPriorityId(), priorityRepository);
-	     String priorityName = priority.getName();
-	     System.out.println("Priority is: " + priorityName);
+			System.out.println("Ticket data: " + ticketDTO.toString());
+			
+			 Priority priority = ticketService.getObjectById(ticketDTO.getPriorityId(), priorityRepository);
+		     String priorityName = priority.getName();
+		     System.out.println("Priority is: " + priorityName);
 
-	     Topic topic = ticketService.getObjectById(ticketDTO.getTopicId(), topicRepository);
-	     String topicName = topic.getName();
-	     System.out.println("Topic is: " + topicName);
-	     
-	     if (ticketDTO.getStatusId() == null) {
-	    	 ticketDTO.setStatusId(DEFAULT_STATUS_ID);
-	     }
-	     
-	     Status status = ticketService.getObjectById(ticketDTO.getStatusId(), statusRepository);
-	     String statusName = status.getName();
-	     System.out.println("Status is: " + statusName);
-	     
-	     DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-	     ZonedDateTime creationDate = ZonedDateTime.parse(ticketDTO.getCreationDate(), formatter);
-	     ZonedDateTime updateDate = ZonedDateTime.parse(ticketDTO.getLastUpdated(), formatter);
-	     
-	     // parse to change to ZonedDateTime, format to change ZonedDateTime to String.
-	     
-	     User user = ticketService.getObjectById(ticketDTO.getOpeningUserId(), userRepository);
-	     MessageDTO messageDTO = ticketDTO.getMessages().get(0);
-	     List<UploadedFileDTO> uploadedFilesDTO = messageDTO.getUploadedFiles();
-	     List<UploadedFile> uploadedFiles = new ArrayList<>();
-	     
-	     for (UploadedFileDTO fileDTO : uploadedFilesDTO) {
-	    	 UploadedFile uploadedFile = new UploadedFile();
-	    	 uploadedFile.setName(fileDTO.getName());
-	    	 uploadedFile.setPath(fileDTO.getPath());
-	    	 
-	    	 uploadedFiles.add(uploadedFile);
-	     }
-	     
-	     Message message = new Message();
-	     
-	     message.setMessage(messageDTO.getMessage());
-	     message.setMessageDate(ZonedDateTime.parse(messageDTO.getMessageDate(), formatter));
-	     message.setSender(user);
-	     message.setUploadedFiles(uploadedFiles);
-	     
-	     List<Message> messages = new ArrayList<>();
-	     
-	     messages.add(message);
-	     
-	     Ticket ticket = new Ticket(ticketDTO.getTicketSubject(), priority, status, topic, user, creationDate, updateDate, messages);
- 
-	     message.setTicket(ticket);
-	     
-	     for (UploadedFile file : uploadedFiles) {
-	    	 file.setMessage(message);
-	     }
-	     
-	     Long createdTicketId = ticketRepository.saveAndReturnId(ticket);
-	     
-	     TicketResponseDTO responseDTO = new TicketResponseDTO();
-	     responseDTO.setTicketId(createdTicketId);
-	     
-		return ResponseEntity.ok(responseDTO);
+		     Topic topic = ticketService.getObjectById(ticketDTO.getTopicId(), topicRepository);
+		     String topicName = topic.getName();
+		     System.out.println("Topic is: " + topicName);
+		     
+		     if (ticketDTO.getStatusId() == null) {
+		    	 ticketDTO.setStatusId(DEFAULT_STATUS_ID);
+		     }
+		     
+		     Status status = ticketService.getObjectById(ticketDTO.getStatusId(), statusRepository);
+		     String statusName = status.getName();
+		     System.out.println("Status is: " + statusName);
+		     
+		     DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+		     ZonedDateTime creationDate = ZonedDateTime.parse(ticketDTO.getCreationDate(), formatter);
+		     ZonedDateTime updateDate = ZonedDateTime.parse(ticketDTO.getLastUpdated(), formatter);
+		     
+		     // parse to change to ZonedDateTime, format to change ZonedDateTime to String.
+		     
+		     User user = ticketService.getObjectById(ticketDTO.getOpeningUserId(), userRepository);
+		     MessageDTO messageDTO = ticketDTO.getMessages().get(0);
+		     List<UploadedFileDTO> uploadedFilesDTO = messageDTO.getUploadedFiles();
+		     List<UploadedFile> uploadedFiles = new ArrayList<>();
+		     
+		     for (UploadedFileDTO fileDTO : uploadedFilesDTO) {
+		    	 UploadedFile uploadedFile = new UploadedFile();
+		    	 uploadedFile.setName(fileDTO.getName());
+		    	 uploadedFile.setPath(fileDTO.getPath());
+		    	 
+		    	 uploadedFiles.add(uploadedFile);
+		     }
+		     
+		     Message message = new Message();
+		     
+		     message.setMessage(messageDTO.getMessage());
+		     message.setMessageDate(ZonedDateTime.parse(messageDTO.getMessageDate(), formatter));
+		     message.setSender(user);
+		     message.setUploadedFiles(uploadedFiles);
+		     
+		     List<Message> messages = new ArrayList<>();
+		     
+		     messages.add(message);
+		     
+		     Ticket ticket = new Ticket(ticketDTO.getTicketSubject(), priority, status, topic, user, creationDate, updateDate, messages);
+	 
+		     message.setTicket(ticket);
+		     
+		     for (UploadedFile file : uploadedFiles) {
+		    	 file.setMessage(message);
+		     }
+		     
+				Long createdTicketId = ticketRepository.saveAndReturnId(ticket);
+				TicketResponseDTO responseDTO = new TicketResponseDTO();
+			     responseDTO.setTicketId(createdTicketId);
+			     
+			     return ResponseEntity.ok(responseDTO);
+		}
+		
+		catch (Exception e) {
+			String errorMessage = e.getMessage();
+			return ResponseEntity
+		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(new MessageResponseDTO("An internal error occurred during ticket creation: " + errorMessage));
+		}
 	}
 	
 	@GetMapping("/getpage")
@@ -156,112 +167,150 @@ public class TicketController {
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
-	public ResponseEntity<TicketDTO> getTicketById(@PathVariable Long id) {
+	public ResponseEntity<?> getTicketById(@PathVariable Long id) {
 		
-		System.out.println("request arrived");
-		
-	    Optional<Ticket> optionalTicket = ticketRepository.findById(id);
-	    
-	    if (optionalTicket.isPresent()) {
-	        Ticket ticket = optionalTicket.get();
-
-	        TicketDTO ticketDTO = ticketService.mapToTicketDTO(ticket);
+		try {
+	        Optional<Ticket> optionalTicket = ticketRepository.findById(id);
 	        
-	        System.out.println(ticketDTO);
-
-	        return ResponseEntity.ok(ticketDTO);
-	    } else {
-	        return ResponseEntity.notFound().build();
+	        if (optionalTicket.isPresent()) {
+	            Ticket ticket = optionalTicket.get();
+	    
+	            TicketDTO ticketDTO = ticketService.mapToTicketDTO(ticket);
+	    
+	            return ResponseEntity.ok(ticketDTO);
+	        } else {
+	            return ResponseEntity
+	                .status(HttpStatus.NOT_FOUND)
+	                .body(new MessageResponseDTO("The ticket with the ID " + id + " has not been found."));
+	        }
+	    } catch (Exception e) {
+	    	String errorMessage = e.getMessage();
+	        return ResponseEntity
+	            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+	            .body(new MessageResponseDTO("An internal error occurred while searching for the ticket: " + errorMessage));
 	    }
 	}
 	
 	@PutMapping("/{ticketId}/update-status")
 	@PreAuthorize("hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
-	public ResponseEntity<String> updateTicketStatus(
+	public ResponseEntity<?> updateTicketStatus(
 	    @PathVariable Long ticketId,
 	    @RequestBody UpdateTicketStatusRequestDTO updateRequest) {
 	    
-	    // Estrai i dati dalla richiesta
-	    Long newStatusId = updateRequest.getTicketStatusId();
-	    Long newAssignedUserId = updateRequest.getNewAssignedUserId();
-	    
-	    Ticket ticket = ticketService.getObjectById(ticketId, ticketRepository);
+		try {
+		
+			Long newStatusId = updateRequest.getTicketStatusId();
+		    Long newAssignedUserId = updateRequest.getNewAssignedUserId();
+		    
+		    Ticket ticket = ticketService.getObjectById(ticketId, ticketRepository);
 
-	    Status newStatus = ticketService.getObjectById(newStatusId, statusRepository);
-	    
-	    User newAssignedUser = ticketService.getObjectById(newAssignedUserId, userRepository);
-	    
-	    // Update the ticket with the new values
-	    ticket.setStatus(newStatus);
-	    ticket.setAssignedTo(newAssignedUser);
+		    Status newStatus = ticketService.getObjectById(newStatusId, statusRepository);
+		    
+		    User newAssignedUser = ticketService.getObjectById(newAssignedUserId, userRepository);
+		    
+		    // Update the ticket with the new values
+		    ticket.setStatus(newStatus);
+		    ticket.setAssignedTo(newAssignedUser);
 
-	    // Save the updated ticket
-	    ticketRepository.save(ticket);
-
+		    // Save the updated ticket
+		    ticketRepository.save(ticket);
+			
+		}
+		
+		catch (Exception e) {
+			String errorMessage = e.getMessage();
+			return ResponseEntity
+		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(new MessageResponseDTO("An internal error occurred during the update of the ticket status: " + errorMessage));
+		}
+	    
 	    return ResponseEntity.ok("Ticket updated successfully");
 	}
 	
 	@PostMapping("/{ticketId}/add-message")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
-	public ResponseEntity<String> addMessageToTicket(
+	public ResponseEntity<?> addMessageToTicket(
 	    @PathVariable Long ticketId,
 	    @RequestBody MessageDTO messageDTO) {
 	    
-		Ticket ticket = ticketService.getObjectById(ticketId, ticketRepository);
-
-		User sender = ticketService.getObjectById(messageDTO.getSenderId(), userRepository);
+		try {
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-	    ZonedDateTime messageDate = ZonedDateTime.parse(messageDTO.getMessageDate(), formatter);
+			Ticket ticket = ticketService.getObjectById(ticketId, ticketRepository);
+
+			User sender = ticketService.getObjectById(messageDTO.getSenderId(), userRepository);
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+		    ZonedDateTime messageDate = ZonedDateTime.parse(messageDTO.getMessageDate(), formatter);
+			
+		    Message newMessage = new Message();
+		    newMessage.setTicket(ticket);
+		    newMessage.setMessage(messageDTO.getMessage());
+		    newMessage.setSender(sender);
+		    newMessage.setMessageDate(messageDate);
+		    
+		    List<UploadedFileDTO> uploadedFilesDTO = messageDTO.getUploadedFiles();
+		    
+		    List<UploadedFile> uploadedFiles = new ArrayList<>();
+		     
+		     for (UploadedFileDTO fileDTO : uploadedFilesDTO) {
+		    	 UploadedFile uploadedFile = new UploadedFile();
+		    	 uploadedFile.setName(fileDTO.getName());
+		    	 uploadedFile.setPath(fileDTO.getPath());
+		    	 uploadedFile.setMessage(newMessage);
+		    	 
+		    	 uploadedFiles.add(uploadedFile);
+		     }
+		    
+		    newMessage.setUploadedFiles(uploadedFiles);
+		    ticket.getMessages().add(newMessage);	    
+		    ticket.setLastUpdated(messageDate);
+
+		    ticketRepository.save(ticket);
+
+		}
 		
-	    Message newMessage = new Message();
-	    newMessage.setTicket(ticket);
-	    newMessage.setMessage(messageDTO.getMessage());
-	    newMessage.setSender(sender);
-	    newMessage.setMessageDate(messageDate);
-	    
-	    List<UploadedFileDTO> uploadedFilesDTO = messageDTO.getUploadedFiles();
-	    
-	    List<UploadedFile> uploadedFiles = new ArrayList<>();
-	     
-	     for (UploadedFileDTO fileDTO : uploadedFilesDTO) {
-	    	 UploadedFile uploadedFile = new UploadedFile();
-	    	 uploadedFile.setName(fileDTO.getName());
-	    	 uploadedFile.setPath(fileDTO.getPath());
-	    	 uploadedFile.setMessage(newMessage);
-	    	 
-	    	 uploadedFiles.add(uploadedFile);
-	     }
-	    
-	    newMessage.setUploadedFiles(uploadedFiles);
-	    ticket.getMessages().add(newMessage);	    
-	    ticket.setLastUpdated(messageDate);
-
-	    ticketRepository.save(ticket);
-
+		catch (Exception e) {
+			String errorMessage = e.getMessage();
+			return ResponseEntity
+		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(new MessageResponseDTO("An internal error occurred while adding a new message: " + errorMessage));
+		}
+		
+		
 	    return ResponseEntity.ok("Message added to the ticket");
 	}
 	
 	@GetMapping("/getfilteredpage")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_AGENT') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<TicketPageDTO> getFilteredPage(
+    public ResponseEntity<?> getFilteredPage(
             @RequestParam Integer page,
             @RequestParam Integer pageSize,
             @RequestParam(required = false) String priorityIds,
             @RequestParam(required = false) String statusIds) {
 
-		System.out.println("page " + page);
-		System.out.println("pageSize " + pageSize);
-		System.out.println("priorityIds " + priorityIds);
-		System.out.println("statusIds " + statusIds);
-		
-		List<Long> priorityIdList = Arrays.asList(priorityIds.substring(1, priorityIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());	
-		List<Long> statusIdList = Arrays.asList(statusIds.substring(1, statusIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
-	    
-        TicketPageDTO ticketPageDTO = ticketService.getFilteredTicketsPage(
-                page, pageSize, priorityIdList, statusIdList);
+		try {
+			System.out.println("page " + page);
+			System.out.println("pageSize " + pageSize);
+			System.out.println("priorityIds " + priorityIds);
+			System.out.println("statusIds " + statusIds);
+			
+			List<Long> priorityIdList = Arrays.asList(priorityIds.substring(1, priorityIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());	
+			List<Long> statusIdList = Arrays.asList(statusIds.substring(1, statusIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
+		    
+	        TicketPageDTO ticketPageDTO = ticketService.getFilteredTicketsPage(
+	                page, pageSize, priorityIdList, statusIdList);
 
-        return ResponseEntity.ok(ticketPageDTO);
+	        return ResponseEntity.ok(ticketPageDTO);
+		}
+		
+		catch (Exception e) {
+			String errorMessage = e.getMessage();
+			return ResponseEntity
+		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(new MessageResponseDTO("An internal error occurred while getting the ticket page " + page + ": " + errorMessage));
+		}
+		
+		
     }
 
 }
