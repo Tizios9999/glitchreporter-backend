@@ -83,24 +83,17 @@ public class TicketController {
 		
 		try {
 		
-			System.out.println("Ticket data: " + ticketDTO.toString());
 			
 			 Priority priority = ticketService.getObjectById(ticketDTO.getPriorityId(), priorityRepository);
-		     String priorityName = priority.getName();
-		     System.out.println("Priority is: " + priorityName);
 
 		     Topic topic = ticketService.getObjectById(ticketDTO.getTopicId(), topicRepository);
-		     String topicName = topic.getName();
-		     System.out.println("Topic is: " + topicName);
 		     
 		     if (ticketDTO.getStatusId() == null) {
 		    	 ticketDTO.setStatusId(DEFAULT_STATUS_ID);
 		     }
 		     
 		     Status status = ticketService.getObjectById(ticketDTO.getStatusId(), statusRepository);
-		     String statusName = status.getName();
-		     System.out.println("Status is: " + statusName);
-		     
+		      
 		     DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 		     ZonedDateTime creationDate = ZonedDateTime.parse(ticketDTO.getCreationDate(), formatter);
 		     ZonedDateTime updateDate = ZonedDateTime.parse(ticketDTO.getLastUpdated(), formatter);
@@ -159,8 +152,6 @@ public class TicketController {
 	public ResponseEntity<TicketPageDTO> getPage(@RequestParam Integer page, @RequestParam Integer pageSize) {
 		
 		TicketPageDTO ticketPageDTO = ticketService.getTicketsPage(page, pageSize);
-		
-		System.out.println(ticketPageDTO);
 		
 		return ResponseEntity.ok(ticketPageDTO);
 	}
@@ -289,10 +280,6 @@ public class TicketController {
             @RequestParam(required = false) String statusIds) {
 
 		try {
-			System.out.println("page " + page);
-			System.out.println("pageSize " + pageSize);
-			System.out.println("priorityIds " + priorityIds);
-			System.out.println("statusIds " + statusIds);
 			
 			List<Long> priorityIdList = Arrays.asList(priorityIds.substring(1, priorityIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());	
 			List<Long> statusIdList = Arrays.asList(statusIds.substring(1, statusIds.length() - 1).split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
