@@ -115,7 +115,7 @@ docker run -p 8080:8080 --env-file .env tizios9999/glitchreporter
 
 Now the service should be up and running at the address: http://localhost:8080.
 
-You can finally access the frontend interface by going to: <a href="https://docs.docker.com/get-docker/">https://glitchreporter-backend-fc42.vercel.app/</a>
+You can finally access the frontend interface by going to: <a href="https://glitch-reporter-frontend-fc42.vercel.app/">https://glitch-reporter-frontend-fc42.vercel.app/</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
