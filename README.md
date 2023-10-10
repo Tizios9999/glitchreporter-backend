@@ -67,8 +67,6 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://glitch-reporter-frontend-fc42.vercel.app/)
-
 GlitchReporter is a complete software application that helps tracking and managing customer support requests. It allows customers to create tickets to report problems or ask questions, and it provides agents with a centralized view of all tickets.
 
 This is the backend service, you have to start this service locally first to access the visual interface.
@@ -156,7 +154,7 @@ Davide Santonocito - davide.santonocito@outlook.com
 
 Project Link: [https://github.com/Tizios9999/glitchreporter-backend](https://github.com/Tizios9999/glitchreporter-backend)
 
-Live at: [https://glitchreporter-backend-fc42.vercel.app/](https://glitch-reporter-frontend-fc42.vercel.app/)
+Live at: [https://glitch-reporter-frontend-fc42.vercel.app/](https://glitch-reporter-frontend-fc42.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -174,4 +172,3 @@ Live at: [https://glitchreporter-backend-fc42.vercel.app/](https://glitch-report
 [license-url]: https://github.com/Tizios9999/glitchreporter-backend/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/davide-santonocito-36ab84170
-[product-screenshot]: public/glitchreporterlogo.png
