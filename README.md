@@ -69,12 +69,7 @@
 
 GlitchReporter is a complete software application that helps tracking and managing customer support requests. It allows customers to create tickets to report problems or ask questions, and it provides agents with a centralized view of all tickets.
 
-This is the backend service, you have to start this service locally first to access the visual interface.
-
-IMPORTANT!
-To be able to run this service, you will need a file with the environment variables. Feel free to contact me to obtain it.
-
-You can find the repository of the frontend interface <a href="https://github.com/Tizios9999/glitch-reporter-frontend/">here</a>.
+This is the backend service, you can find the repository of the frontend interface <a href="https://github.com/Tizios9999/glitch-reporter-frontend/">here</a>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,30 +87,19 @@ You can find the repository of the frontend interface <a href="https://github.co
 
 ## Getting Started
 
+Go to <a href="https://glitch-reporter-frontend-fc42.vercel.app/">https://glitch-reporter-frontend-fc42.vercel.app/</a> and enjoy the application!
+
+<strong>IMPORTANT: The initial loading might take some minutes, since the application is on a test environment.</strong>
+
 ### Prerequisites
 
-- Environment variables (.env) file: please contact me to obtain it.
-- Docker: This backend service runs on a Docker Container. You can download it <a href="https://docs.docker.com/get-docker/">here</a> and follow the instructions on how to use it.
+As for the 23/10/2023 update, this backend service is served online and therefore there are no prerequisites to launch it.
 
 ### Installation
 
-Place the .env file in a folder of your choice. Open a terminal in that folder (CMD or PoweShell in Windows, Bash in Linux etc).
+As for the 23/10/2023 update, this backend service is served online.
 
-From that folder, pull the Docker image from the Docker registry.
-
-```sh
-docker pull tizios9999/glitchreporter
-```
-
-Once you downloaded the image, you can run the service in a Docker container.
-
-```sh
-docker run -p 8080:8080 --env-file .env tizios9999/glitchreporter
-```
-
-Now the service should be up and running at the address: http://localhost:8080.
-
-You can finally access the frontend interface by going to: <a href="https://glitch-reporter-frontend-fc42.vercel.app/">https://glitch-reporter-frontend-fc42.vercel.app/</a>
+You can access the frontend interface by going to: <a href="https://glitch-reporter-frontend-fc42.vercel.app/">https://glitch-reporter-frontend-fc42.vercel.app/</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
